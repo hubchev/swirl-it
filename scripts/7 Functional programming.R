@@ -11,7 +11,13 @@ library(tidyverse)
 # Iteration --------------------------------------------------------------------
 
 
-# Iteration without loops -----------------------------------------------------
+# Iteration without loops
+
+
+# Conditions -------------------------------------------------------------------
+
+
+# Vectorized condition: if_else()
 
 
 # Writing functions ------------------------------------------------------------
@@ -21,10 +27,18 @@ library(tidyverse)
 
 `*`(5, 8)
 
-# This is usefult to know for pipeing
+# This is usefult to know for piping
 
 5 %>% 
     `*`(4)
 
+# Functions either return something, or have a side effect. It is better not to do both.
+# Let's create a simple function
+
+hello_world <- function(){
+    print("Hello world!")
+}
+
+hello_world()
 
 
