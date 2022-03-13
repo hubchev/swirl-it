@@ -1,0 +1,76 @@
+---
+title: "Lightning simulation"
+author: "Tamas Nagy"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+# Task
+
+- Create a random lightning algorithm, and visualize the result!
+- The lightning should be a random walk from top to bottom.
+- At each step, there is a 1% chance of forking.
+- Each fork in itself is a new random walk.
+- The forks do not need to fork further.
+- Visualize the lightning, preferably using black background and blue/white foreground color. 
+- Try to do this using no loops!
+
+# Dataset
+
+There is no dataset for this project. You have to simulate from scratch!
+
+```{r}
+library(tidyverse)
+
+lightning_length = 500 # How tall the lightning is (in points)
+forking = .01 # Chance of forking at each step
+p_forking = c(1 - forking, forking) # The probability of not forking and forking
+
+lightning <-
+    # Creating the data structure
+    tibble(y = 1:lightning_length,
+           # The position of the lightning on the x scale changes randomly
+           change = sample(-1:1, size = lightning_length, replace = TRUE),
+           # Decide if there is a forking at that point
+           fork = sample(0:1, prob = p_forking, size = lightning_length, replace = TRUE),
+           # If forking, name the new fork with adding a number to the name
+           fork_name = if_else(fork > 0, paste0("fork_", cumsum(fork)), NA_character_)) %>% 
+    pivot_wider(names_from = "fork_name", values_from = "fork") %>%
+    # A variable called NA was also created we don't need it
+    select(-`NA`) %>% 
+    # Fill all fork variables from the point where it is not NA
+    fill(matches("fork_\\d+")) %>% 
+    # From now on, calculate the actual x position of each for
+    # Up until now, we only calculated the relative changes
+    mutate(fork_zero = cumsum(change),
+           across(matches("fork_\\d+"), 
+                  ~if_else(.x == 1, sample(-1:1, size = lightning_length, replace = TRUE), 0L)),
+           across(matches("fork_\\d+"), 
+                  ~if_else(is.na(.x), 0L, .x) %>% 
+                      cumsum() + fork_zero)) %>% 
+    # Cast into long format for plotting
+    pivot_longer(matches("fork_\\d+"), 
+                 names_to = "fork_no",
+                 values_to = "x")
+
+# Visualize the results
+lightning %>% 
+    ggplot() +
+    aes(y = rev(y), x = x, group = fork_no) +
+    # We create 3 lightnings wit decreasing width and increasing light (not necessary)
+    geom_ribbon(aes(xmin = x - 1, xmax = x + 1), color = "darkblue") +
+    geom_ribbon(aes(xmin = x - .5, xmax = x + .5), color = "lightblue", alpha = .5) +
+    geom_ribbon(aes(xmin = x - .1, xmax = x + .1), color = "white", alpha = .5) +
+    coord_cartesian(xlim = c(-150, 150)) +
+    # Remove axes and add black background
+    theme_void() +
+    theme(plot.background = element_rect(fill = "black")) 
+```
+

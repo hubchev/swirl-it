@@ -1,16 +1,16 @@
 ---
 title: "Exploratory data analysis"
 author: "Tamas Nagy"
-date: "15/03/2033"
+date: "15/03/2022"
 output: html_document
 ---
   
 # Install packages
   
 ```{r}
-install.packages("titanic")
-install.packages("ggridges")
-install.packages("GGally")
+# install.packages("titanic")
+# install.packages("ggridges")
+# install.packages("GGally")
 
 ```
 
@@ -238,11 +238,13 @@ facet_wrap(~Survived)
 ## Solution for Titanic question 3
 ```{r}
 titanic_df <-
-titanic_train %>% 
-as_tibble() %>% 
-filter(Parch == 0 & SibSp == 0) %>% 
-select(PassengerId, Sex, Age, Pclass, Fare, Survived) %>% 
-group_by(Pclass) %>% 
-mutate(med_price = median(Fare)) %>% 
-ungroup()
+    titanic_train %>% 
+    as_tibble() %>% 
+    filter(Parch == 0 & SibSp == 0) %>% 
+    select(PassengerId, Sex, Age, Pclass, Fare, Survived) %>% 
+    group_by(Pclass) %>% 
+    mutate(med_price = median(Fare)) %>% 
+    ungroup()
+
+titanic_df
 ```
