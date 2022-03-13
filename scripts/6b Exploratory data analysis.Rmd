@@ -1,0 +1,248 @@
+---
+title: "Exploratory data analysis"
+author: "Tamas Nagy"
+date: "15/03/2033"
+output: html_document
+---
+  
+# Install packages
+  
+```{r}
+install.packages("titanic")
+install.packages("ggridges")
+install.packages("GGally")
+
+```
+
+# Load packages
+
+```{r warning = FALSE, error = FALSE, message = FALSE}
+library(dplyr)
+```
+
+Let's use the titanic dataset
+
+```{r}
+library(titanic)
+```
+
+Check the codebook to identify variables
+
+```{r codebook}
+titanic_train %>% as_tibble()
+?titanic_train
+```
+
+## Solution for Titanic question 1
+
+```{r solution1}
+titanic_train %>% 
+  filter(Age == 50 & Sex == "female" & Pclass == 1, SibSp + Parch == 0)
+```
+
+
+# Exploratory data analysis
+
+To examine the distribution of a categorical variable, use a bar chart
+```{r}
+library(ggplot2)
+diamonds
+?diamonds
+```
+
+See the number of observations grouped by the cut variable
+```{r}
+diamonds %>% 
+  count(cut)
+
+ggplot(data = diamonds) +
+  aes(x = cut) +
+  geom_bar()
+```
+
+To examine the distribution of a continuous variable, use a histogram
+```{r}
+ggplot(data = diamonds) +
+  aes(x = carat) +
+  geom_histogram(binwidth = 0.5)
+```
+
+## Typical values
+Oldschool values are available by useing summary on a dataset or just one variable
+```{r}
+summary(diamonds)
+summary(diamonds$cut)
+```
+
+Use `skimr::skim` to get quick textual info about your variables
+
+```{r}
+library(ggplot2)
+diamonds
+
+ggplot(diamonds) +
+  aes(x = carat) +
+  geom_density(fill = "grey50")
+```
+
+Unusual values
+```{r}
+ggplot(diamonds) + 
+  aes(x = y) +
+  geom_histogram(binwidth = 0.5)
+```
+
+To make it easy to see the unusual values, we need to zoom to small values of the y-axis with `coord_cartesian()`
+
+```{r}
+ggplot(diamonds) +
+  aes(x = y) +
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50))
+```
+
+Let's save the unusual values that are smaller than 3 and larger than 20
+```{r}
+unusual <- 
+diamonds %>% 
+filter(y < 3 | y > 20) %>% 
+select(price, x, y, z) %>%
+arrange(y)
+```
+
+Let's check the unusual values
+```{r}
+unusual
+```
+
+Instead of excluding the variables entirely, let's just make the outlier values `NA`
+This way, you keep the other values of the observation, that may not be invalid. Also, you don't have to make note somewhere else that you actually had to remove cases. This information remains in your data.
+```{r}
+diamonds2 <- diamonds %>% 
+  mutate(y = if_else(y < 3 | y > 20, NA_real_, y))
+```
+
+Missing values will be always shown as a warning
+```{r}
+ggplot(diamonds2) + 
+  aes(x = x, y = y) +
+  geom_point()
+```
+
+## COVARIATION
+It is possible to see differing distributions in a continuous vaiable for separate categorical levels
+To check  frequency distribution of price by cut, we can use frequency polygons (similar to histograms)
+```{r}
+ggplot(data = diamonds) + 
+  aes(x = price, color = cut) +
+  geom_freqpoly(binwidth = 500)
+```
+
+Or you can choose to use density plots, those show relative frequencies (but the purpose is similar)
+```{r}
+ggplot(data = diamonds) + 
+  aes(x = price, fill = cut, color = cut) +
+  geom_density(alpha = .3)
+```
+
+However, this does not look that great, so let's check out a visualization that shows distributions in a way that is is also readable. For this, we need the `ggridges` package
+```{r}
+library(ggridges)
+ggplot(diamonds) +
+aes(x = price, y = cut, fill = cut) +
+geom_density_ridges()
+```
+
+Checking the covariation of a continuous and a categorical variable
+To check the typical values along with a distribution summary in a plot, use boxplot
+```{r}
+ggplot(data = diamonds) +
+aes(x = cut, y = price) +
+geom_boxplot()
+```
+
+We can also reorder values based on the median (central line in boxplot)
+```{r}
+ggplot(data = diamonds) +
+aes(x = forcats::fct_reorder(cut, price), y = price) +
+geom_boxplot()
+```
+
+###Two categorical variables
+Comparing how color and cut covary, we can simply calculate the number of cases
+```{r}
+diamonds %>% 
+count(color, cut, sort = TRUE)
+```
+
+But we are better off if we also visualize the results 
+For e.g. we can use the count plot. This shows the number of cases by size of the dots
+```{r}
+ggplot(data = diamonds) +
+aes(x = cut, y = color) +
+geom_count()
+```
+We can also make a heatmap, where we visualize the frequency of cases as color density
+In this example, darker colors mean less and brither colors mean more cases
+```{r}
+diamonds %>% 
+count(color, cut) %>%  
+ggplot() +
+aes(x = color, y = cut) +
+geom_tile(mapping = aes(fill = n))
+```
+
+### Two continuous variables
+The most obvious visualization is the simple scatter plot
+```{r}
+ggplot(data = diamonds) +
+aes(x = carat, y = price) +
+geom_point()
+```
+
+Or by binning the data points that are close to each other
+```{r}
+ggplot(diamonds) +
+aes(x = carat, y = price) +
+geom_bin2d()
+```
+
+You can also use hexagon bins instead of rectangles
+```{r}
+ggplot(diamonds) +
+aes(x = carat, y = price) +
+geom_hex()
+```
+
+You can also automatically visualize the distributions and associations in your dataset, but it may not work well for great datasets (therefore here I only visualize the first 5 variables)
+
+```{r}
+library(GGally)
+diamonds %>% 
+select(1:5) %>% 
+ggpairs()
+```
+
+#PRACTICE ON TITANIC DATA
+
+## Solution for Titanic question 2
+```{r}
+titanic_train %>% 
+group_by(Pclass, Sex, Survived) %>% 
+ggplot() +
+aes(x = Pclass, fill = Sex) +
+geom_bar(position = "dodge") +
+facet_wrap(~Survived)
+```
+
+## Solution for Titanic question 3
+```{r}
+titanic_df <-
+titanic_train %>% 
+as_tibble() %>% 
+filter(Parch == 0 & SibSp == 0) %>% 
+select(PassengerId, Sex, Age, Pclass, Fare, Survived) %>% 
+group_by(Pclass) %>% 
+mutate(med_price = median(Fare)) %>% 
+ungroup()
+```

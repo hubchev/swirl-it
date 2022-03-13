@@ -1,0 +1,130 @@
+---
+title: "Lecture 4 - R markdown"
+author: "Tamas Nagy"
+output: html_document
+---
+# How to write an R markdown document
+
+In an R markdown document, you can have a normal text (written using markdown), code blocks, output blocks, embedded pictures. 
+
+Use standard r markdown notation:
+
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+
+
+You can draw a horizontal separator like this:
+
+***
+Plain text: Plain text  
+End lines with two spaces to start a new paragraph  
+Bold: *italic*  
+Italic: **bold**  
+Strike-through: ~~strike-through~~  
+
+Use bullet points:
+
+* like this
+* or this
+* or his
+* or this
+    + You
+    + can
+
+Or numbering:
+
+1. First
+2. Second
+3. Third
+    a. can
+    b. have
+    c. hierarchies
+    
+***
+endash: --  
+emdash: ---  
+ellipsis: ...  
+Inline equation: $P(Y) = \frac{1}{1-e^{(B_1X+B_0)}}$  
+
+Link: [Link to the course's osf site](https://osf.io/xcvn7/)  
+
+***  
+
+There are some useful keyboard shortcuts:
+
+* Ctrl/Cmd + Shift + K Saves your document and compiles it to html (or pdf or docx, depending on your setting)
+* F7 performs a spell check on the text (not the code)
+* If you just want to run a code chunk, use Ctrl/Cmd + Enter
+
+## What is more, you can make DYW tables if you must
+
+Title  | T2    |   T3  |    T4
+-------|-------|-------|-----------
+   This| looks |pretty | oldschoool
+But    | still |cool   | imho
+       |       |       |           
+
+***
+
+# Code chunks (invisible)
+The code chunk looks like the following, if you don't want it to be seen, only executed
+
+```{r setup, include=FALSE}
+library(tidyverse)
+if (!require(babynames)) install.packages("babynames")
+if (!require(sjPlot)) install.packages("sjPlot")
+library(babynames)
+library(broom)
+library(sjPlot)
+```
+
+# Code chunk (output only)
+If you simply print a dataframe, it will be printed interactively.
+
+```{r echo=FALSE}
+babynames
+```
+
+# Code chunk (code + output)
+You can choose to suppress or show outputs, messages, warnings, etc. You can also name your chunks.
+
+```{r transform, message=FALSE, warning=FALSE}
+bertha <- 
+    babynames %>% 
+    filter(name == "Bertha") 
+bertha
+```
+
+# Inserting a plot  
+Let's make a plot now. We can even change the dimensions of the plot, and align it to the center.
+
+```{r echo=TRUE, fig.height=6, fig.width=9, fig.align = "center"}
+bertha %>% 
+    ggplot() +
+    aes(x = year, y = prop, group = sex, color = sex) +
+    geom_line()
+```
+
+# Inserting an analysis output  
+Let's check model fit indices and parameters
+
+```{r}
+bert_mod <- lm(prop*100 ~ I(year/10) * sex, data = bertha)
+broom::tidy(bert_mod)
+broom::glance(bert_mod)
+```
+
+# Showing a summary table that that is created as html. 
+```{r}
+tab_model(bert_mod)
+```
+
+
+# Insterting an image
+![](http://www.reactiongifs.com/wp-content/uploads/2013/06/deal.gif)
+
+
+

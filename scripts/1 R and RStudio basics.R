@@ -101,7 +101,6 @@ as.character(numbers)
 length(numbers)
 # [1] 10
 
-
 # Create a character vector. Mind the ""-s. It is the same as '', but the opening quote has to match the closing quote.
 fruits <- c("apple", 'apple', "banana", "kiwi", "pear", "strawberry", 'strawberry')
 print(fruits) # Print the content of the variable
@@ -189,6 +188,5 @@ library(swirl) # Load the package to the R session
 # Follow the instructions of swirl and do the first lesson. As a homework, you can do lesson 2-7. 
 # To stat swirl, just type: 
 swirl()
-
 
 
