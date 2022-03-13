@@ -1,0 +1,32 @@
+---
+title: "Assignment 7: Lightning simulation"
+author: "Tamas Nagy"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+# Task
+
+- Create a random lightning algorithm, and visualize the result!
+- The lightning should be a random walk from top to bottom.
+- At each step, there is a 1% chance of forking.
+- Each fork in itself is a new random walk.
+- The forks do not need to fork further.
+- Visualize the lightning, preferably using black background and blue/white foreground color. 
+- Try to do this using no loops!
+
+# Dataset
+
+There is no dataset for this project. You have to simulate from scratch!
+
+```{r}
+
+```
+
