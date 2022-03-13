@@ -1,0 +1,71 @@
+broad_field,year,n
+Education,2008,6561
+Education,2009,6528
+Education,2010,5287
+Education,2011,4670
+Education,2012,4803
+Education,2013,4934
+Education,2014,4789
+Education,2015,5098
+Education,2016,5146
+Education,2017,4823
+Engineering,2008,1364
+Engineering,2009,1333
+Engineering,2010,1391
+Engineering,2011,1525
+Engineering,2012,1757
+Engineering,2013,2017
+Engineering,2014,2191
+Engineering,2015,2178
+Engineering,2016,2156
+Engineering,2017,2227
+Humanities and arts,2008,4736
+Humanities and arts,2009,4904
+Humanities and arts,2010,5015
+Humanities and arts,2011,5226
+Humanities and arts,2012,5561
+Humanities and arts,2013,5715
+Humanities and arts,2014,5524
+Humanities and arts,2015,5594
+Humanities and arts,2016,5480
+Humanities and arts,2017,5290
+Life sciences,2008,18732
+Life sciences,2009,19332
+Life sciences,2010,19005
+Life sciences,2011,19645
+Life sciences,2012,20386
+Life sciences,2013,20892
+Life sciences,2014,21633
+Life sciences,2015,21667
+Life sciences,2016,22354
+Life sciences,2017,22057
+Mathematics and computer sciences,2008,3187
+Mathematics and computer sciences,2009,3163
+Mathematics and computer sciences,2010,3223
+Mathematics and computer sciences,2011,3273
+Mathematics and computer sciences,2012,3496
+Mathematics and computer sciences,2013,3660
+Mathematics and computer sciences,2014,3862
+Mathematics and computer sciences,2015,3818
+Mathematics and computer sciences,2016,3956
+Mathematics and computer sciences,2017,3843
+Other,2008,2762
+Other,2009,2807
+Other,2010,2729
+Other,2011,2683
+Other,2012,2734
+Other,2013,3023
+Other,2014,3043
+Other,2015,3020
+Other,2016,2941
+Other,2017,3113
+Psychology and social sciences,2008,10684
+Psychology and social sciences,2009,11074
+Psychology and social sciences,2010,10978
+Psychology and social sciences,2011,11524
+Psychology and social sciences,2012,12040
+Psychology and social sciences,2013,12129
+Psychology and social sciences,2014,12322
+Psychology and social sciences,2015,12779
+Psychology and social sciences,2016,12829
+Psychology and social sciences,2017,12757

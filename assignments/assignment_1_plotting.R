@@ -1,3 +1,5 @@
+# Plotting assignment
+
 library(tidyverse)
 
 # Task 1: Climbing expeditions

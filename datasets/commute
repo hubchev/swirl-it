@@ -1,0 +1,54 @@
+state_region,state,state_abb,Bike,Walk
+North Central,Illinois,IL,27880,142457
+North Central,Indiana,IN,7921,35085
+North Central,Iowa,IA,4396,24415
+North Central,Kansas,KS,3368,17298
+North Central,Michigan,MI,9925,45522
+North Central,Minnesota,MN,15830,41074
+North Central,Missouri,MO,4091,25544
+North Central,Nebraska,NE,3220,13069
+North Central,North Dakota,ND,1471,5480
+North Central,Ohio,OH,8807,68139
+North Central,South Dakota,SD,1269,4383
+North Central,Wisconsin,WI,14289,46802
+Northeast,Connecticut,CT,2679,26975
+Northeast,Maine,ME,1069,8240
+Northeast,Massachusetts,MA,16661,110278
+Northeast,New Hampshire,NH,621,6529
+Northeast,New Jersey,NJ,4061,66005
+Northeast,New York,NY,34061,447952
+Northeast,Pennsylvania,PA,16437,99493
+Northeast,Rhode Island,RI,1700,12649
+Northeast,Vermont,VT,1101,4490
+South,Alabama,AL,1780,11071
+South,Arkansas,AR,826,9738
+South,Delaware,DE,429,4759
+South,Florida,FL,31928,71683
+South,Georgia,GA,3870,23325
+South,Kentucky,KY,2046,11592
+South,Louisiana,LA,5260,18736
+South,Maryland,MD,3397,26934
+South,Mississippi,MS,965,8492
+South,North Carolina,NC,7364,42704
+South,Oklahoma,OK,3100,18486
+South,South Carolina,SC,3439,20337
+South,Tennessee,TN,2082,15360
+South,Texas,TX,24085,126332
+South,Virginia,VA,8330,39953
+South,West Virginia,WV,404,6094
+West,Alaska,AK,2222,6103
+West,Arizona,AZ,22040,42582
+West,California,CA,142845,358709
+West,Colorado,CO,24314,40567
+West,Hawaii,HI,3070,15637
+West,Idaho,ID,6303,11006
+West,Montana,MT,4837,8969
+West,Nevada,NV,2903,11950
+West,New Mexico,NM,4938,9774
+West,Oregon,OR,34030,43978
+West,Utah,UT,8023,26155
+West,Washington,WA,22037,72340
+West,Wyoming,WY,1534,3155
+NA,Ca,NA,71,NA
+NA,District of Columbia,NA,9347,37055
+NA,Massachusett,NA,23,NA
