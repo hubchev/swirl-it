@@ -1,5 +1,5 @@
 ---
-title: "Lecture 4 - R markdown"
+title: "Reporting in R markdown"
 author: "Tamas Nagy"
 output: html_document
 ---

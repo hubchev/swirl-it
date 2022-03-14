@@ -16,7 +16,9 @@ cocktails %>% distinct(type)
 dummy_cocktails <-
     cocktails %>% 
     mutate(value = 1) %>% # This defines what will be the spread across variables
-    spread(type, value, fill = 0) #%>% # Add fill for binary coding, otherwise it will be NA
+    pivot_wider(names_from = type, 
+                values_from = value, 
+                values_fill = 0) #%>% # Add fill for binary coding, otherwise it will be NA
 # select(name, blended:stirred) # Just to show the important variables, otherwise, don't use this
 
 
@@ -62,19 +64,21 @@ predict(acid_lm, newdata)
 # modelr::add_predictions() returns a data frame. This one is the preferable.
 modelr::add_predictions(newdata, acid_lm)
 
+# Add more predictors using the update function
+
+new_mod <- update(acid_lm, . ~ . + sugar)
+
 ## Checking the assumptions for linear regression
 # Measure multicollinearity using the variance inflaction factor (VIF)
 # Values for any varible should not be larger than 10
-car::vif(acid_lm)
+car::vif(new_mod)
 
-# If the average VIF is larger than 1, it means that multicollineratity is biasing our model
-mean(car::vif(acid_lm))
+# If the average VIF is larger than 5, it means that multicollineratity is biasing our model
+mean(car::vif(new_mod))
 
-# We can also look at the tolerance, that is the reciprocal of VIF, where we are looking for values closer to one (tolerance has the adventage of being between 0 and 1). Values below .1 indicate serious problems, while values below .2 are somewhat troublesome
-1/car::vif(acid_lm)
 
 # Measuring the independence of residuals
-car::dwt(acid_lm)
+car::dwt(new_mod)
 
 # It seems like model has some significant autocorrelation, so the residuals are not independent
 
@@ -82,16 +86,15 @@ car::dwt(acid_lm)
 
 ## Residual diagnostics
 # The residuals should not have an underlying pattern: they should have a normal distribution
-cocktails %>% 
-    augment(lm(abv ~ acid, data = .), .) %>% 
+
+augment(new_mod) %>% 
     ggplot() +
     aes(.resid) +
     geom_histogram(bins = 10)
 
 # We can also do a normality test on the residuals
 # The Shapiro-Wilks test shows that the residuals are normally distributed
-cocktails %>% 
-    augment(lm(abv ~ acid, data = .), .) %>% 
+augment(new_mod) %>% 
     pull(.resid) %>% 
     shapiro.test()
 
@@ -99,11 +102,11 @@ cocktails %>%
 library(performance)
 # This will plot 5 different diagnostic plots that are all useful to tell if the prediction is reliable
 # See explanation on the slides
-check_model(acid_lm)
+check_model(new_mod)
 
 # See how to interpret diagnostic plots in slides
 # Let's store the diagnostic values in a variable
-acid_lm_diag <- augment(acid_lm, cocktails)
+acid_lm_diag <- augment(new_mod)
 
 # We can single out observations with the slice() function
 cocktails %>% 
@@ -113,7 +116,8 @@ cocktails %>%
 acid_lm_clean <-
     cocktails %>% 
     filter(acid != 0) %>% 
-    lm(abv ~ acid, data = .)
+    update(new_mod, data = .)
+
 summary(acid_lm_clean)
 # We can check the diagnostics without the influential cases.
 # Remember, that you can only remove cases from the dataset, when you are perfectly sure that the data was not recorded correctly. You cannot simply remove outliers because they don't fit your model.
@@ -208,10 +212,8 @@ write_lines(results_table_html, "results_table.html")
 # See model fitting "game" at http://www.dangoldstein.com/regression.html
 
 # Plot the residuals (error term from the model prediction)
-# Ignore the warnings, thet are known developer bugs
 # This plot shows the unexplained variance of the model (summary of the red lines)
-cocktails %>% 
-  augment(lm(abv ~ acid, data = .), .) %>% 
+ augment(lm1) %>% 
   ggplot() +
   aes(y = abv, x = acid) +
   geom_smooth(method = "lm", se = FALSE, size = 1.5, color = "black") +

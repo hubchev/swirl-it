@@ -3,6 +3,8 @@ title: "Exploratory data analysis"
 author: "Tamas Nagy"
 date: "15/03/2022"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
   
 # Install packages
@@ -68,17 +70,17 @@ ggplot(data = diamonds) +
 ```
 
 ## Typical values
-Oldschool values are available by useing summary on a dataset or just one variable
+Oldschool values are available by useing summary on a dataset or just one variable.
+Use `skimr::skim` to get quick and concise textual info about your variables.
 ```{r}
 summary(diamonds)
 summary(diamonds$cut)
+
+skimr::skim(diamonds)
 ```
 
-Use `skimr::skim` to get quick textual info about your variables
 
 ```{r}
-library(ggplot2)
-diamonds
 
 ggplot(diamonds) +
   aes(x = carat) +
@@ -118,7 +120,8 @@ unusual
 Instead of excluding the variables entirely, let's just make the outlier values `NA`
 This way, you keep the other values of the observation, that may not be invalid. Also, you don't have to make note somewhere else that you actually had to remove cases. This information remains in your data.
 ```{r}
-diamonds2 <- diamonds %>% 
+diamonds2 <- 
+  diamonds %>% 
   mutate(y = if_else(y < 3 | y > 20, NA_real_, y))
 ```
 
@@ -164,7 +167,7 @@ geom_boxplot()
 We can also reorder values based on the median (central line in boxplot)
 ```{r}
 ggplot(data = diamonds) +
-aes(x = forcats::fct_reorder(cut, price), y = price) +
+aes(x = fct_reorder(cut, price), y = price) +
 geom_boxplot()
 ```
 

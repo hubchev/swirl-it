@@ -1,0 +1,245 @@
+---
+title: "Passing the Bechdel test in movies"
+author: "Tamas Nagy"
+date: "15/03/2022"
+output: 
+  html_document:
+   theme: spacelab
+   code_download: true
+   toc: true
+   toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+ 
+# Loading packages
+# Note: some functions cannot run without installing further packages, e.g. the
+# genderdata package. Thus, it is likely that you won't be able to knit this 
+# document without installing all required further packages first.
+
+
+library(tidyverse)
+library(gender)
+library(broom)
+library(sjPlot)
+library(easystats)
+library(scales)
+library(yardstick)
+
+theme_set(theme_light())
+
+```
+
+
+# What is this
+
+This is a tutorial document to use R for creating an analysis report. It includes the following elements:
+
+- Data transformation.
+- Data visualization.
+- Using the gender package to infer the gender based on first name.
+- Using, interpreting, and evaluating binomial logistic regression results.
+
+# Aim
+
+We will use the Bechdel test dataset from the TidyTuesday project to predict if a movie passed the test or not, based on the gender of the writers. Dataset and info available  from here: https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-03-09/readme.md
+This dataset is collected by https://fivethirtyeight.com/ 
+
+## What is the Bechdel test?
+According to Wikipedia:
+
+> The Bechdel test (/ˈbɛkdəl/ BEK-dəl), also known as the Bechdel–Wallace test, is a measure of the representation of women in fiction. It asks whether a work features at least two women who talk to each other about something other than a man. 
+
+
+```{r include=FALSE}
+# Read the data
+
+raw_bechdel <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-09/raw_bechdel.csv')
+
+raw_movies <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-09/movies.csv',
+                       # The dataset has different ways to mark missing data
+                       na = c("NA", "N/A", "#N/A"))
+
+```
+
+There are two datasets in the project. The first one contains `r nrow(raw_bechdel)` Bechdel ratings, movie title, and release year. 
+
+```{r eval=FALSE, include=FALSE}
+# Let's just make two quick plots to see the distribution of the test results and the distribution by year.
+raw_bechdel %>% 
+    ggplot() +
+    aes(x = rating) +
+    geom_histogram()
+
+raw_bechdel %>% 
+    ggplot() +
+    aes(x = year, y = rating, group = rating, fill = as.factor(rating)) +
+    geom_violin(show.legend = FALSE) +
+    geom_point(alpha = .01, show.legend = FALSE)
+
+```
+
+The second dataset contains more information about the movies, but contains movies only from 1970 to 2013. Even though we could harvest the movie data from imdb for the first dataset, we will settle with using the second dataset, containing `r nrow(raw_movies)` movies. Interested readers can improve this analysis by extending the analysis to more movies using the imdb API, or a related R package.
+
+Our aim is to predict if a movie is passing the Bechdel test. Our predictor is the proportion of women in the writer team, the year of release, and the runtime. The latter will be used as a control variable, I assume that longer movies might have more chance to introduce more complex female characters.
+
+## Preprocessing the data
+
+### Identifying the gender of writers
+
+The dataset contains the names of the writers for each movie. Using this, we first get a list of first names for each movie. Then we will use the `{gender}` package to assume the gender associated with each unique name.
+
+The gender package assumes the gender, based on the first name. As different names are used for both males and females in different times, it also requires a year as an input. Then it checks the proportion of females vs. males that had that name in the specific year, and assumes a gender.
+
+In my analysis, I will make an arbitrary decision to use 1970 as the year for the classification (a sensitivity analysis could be added to see if this introduces much error, I guess not).
+
+
+```{r}
+# First get all unique first names from writer teams
+writer_names <- 
+    raw_movies %>% 
+    separate_rows(writer, sep = ", ") %>% 
+    transmute(writer_name = str_match(writer, pattern = "(^\\w+) .*")[,2])
+
+# Use the gender package to assume a gender in 1970
+name_gender <- 
+    gender(unique(writer_names$writer_name), year = 1970) %>% 
+    select(writer_name = name, 
+           gender)
+
+```
+
+Then I calculate the proportion of females in each writer team for each movie. 
+
+```{r}
+# Calculate the proportion of female writers for each movie
+female_writers <- 
+    raw_movies %>% 
+    separate_rows(writer, sep = ", ") %>%
+    mutate(writer_name = str_match(writer, pattern = "(^\\w+) .*")[,2]) %>% 
+    left_join(name_gender, by = "writer_name") %>% 
+    group_by(imdb_id) %>% 
+    summarise(female_writer = mean(gender == "female", na.rm = TRUE)) %>% 
+    drop_na()
+```
+
+Finally, I create the final analysis dataset, where I only keep relevant variables, recode the outcome to numeric (0/1), create a decade variable instead of year, and convert the runtime in hours.
+
+```{r}
+movies <-
+    raw_movies %>% 
+    transmute(imdb_id,
+              title,
+              bechdel_pass = recode(binary, "FAIL" = 0L, "PASS" = 1L),
+              decade = (year %/% 10)*10,
+              runtime = parse_number(runtime)/60,
+              writer) %>% 
+    left_join(female_writers, by = "imdb_id") %>% 
+    drop_na(female_writer)
+
+```
+
+## Creating a model
+
+I will use the the proportion of female writers as a main predictor, but as control variables, I will also add the decade of release and the runtime in minutes. A binomial logistic model will be fit to predict the passing on the Bechdel test. 
+
+```{r}
+
+bechdel_model <-
+    glm(bechdel_pass ~ female_writer + decade + runtime, 
+        data = movies, 
+        family = "binomial")
+
+# This is the standard regression output
+summary(bechdel_model)
+
+# This is the tidy approach, that converts log likelihoods to odds ratios, and adds confidence intervals.
+tidy(bechdel_model, conf.int = TRUE, exponentiate = TRUE)
+
+# This is for conveniently making an APA compatible summary table. We also use robust statndard errors to account for the heteroscedasticity.
+
+tab_model(bechdel_model, 
+          show.aic = TRUE,
+          show.loglik = TRUE, 
+          string.ci = "95% CI", 
+          show.stat = TRUE,
+          robust = TRUE,
+          dv.labels = "Passing the Bechdel test",
+          pred.labels = c("(Intercept)",
+                          "% female in writer team", 
+                          "Decade of release", 
+                          "Runtime (h)"))
+
+```
+
+The results reveal that all predictors are significant. This means that the chance of passing the Bechdel test is 8.22-fold if the entire writer team is female, compared to an all male writer team. This holds even if we account for the effects of the release decade (newer movies pass the test more often), and runtime (longer movies are more likely to fail the test, wtf?).
+
+Assumption checks are available from the `{performance}` package, that is part of the `{easystats}` ecosystem. I won't really do much about the assumption checks now, other than showing the output.
+
+```{r}
+check_model(bechdel_model)
+```
+
+## Evaluate model performance
+
+In general, `r percent(mean(movies$bechdel_pass))` of the investigated movies passed the Bechdel test. Full male teams are twice as likely to fail the test, while full female writer teams are approximately 4 times more likely to pass the test. Thus there is an 8-fold difference between all male and all female writer teams.
+
+```{r}
+# Create a prediction dataset with all possible predictor values
+newdata <-
+    crossing(female_writer = seq(0,1,.025),
+             decade = seq(1970, 2010, 10),
+             runtime = unique(movies$runtime))
+
+# Interpolate the predicted values, and create a
+augment(bechdel_model, newdata = newdata, type.predict = "link") %>%
+    group_by(female_writer) %>% 
+    mutate( .fitted = exp(.fitted),
+            avg_fitted = mean(.fitted, na.rm = TRUE)) %>% 
+    ungroup() %>% 
+    ggplot() +
+    aes(x = female_writer, y = .fitted) +
+    geom_hline(yintercept = 1, color = "red", lty = "dashed") +
+    geom_point(alpha = .01) +
+    geom_line(aes(y = avg_fitted), color = "blue", size = 2, alpha = .5) +
+    scale_x_continuous(labels = scales::percent_format()) +
+    labs(x = "% of female writers for the movie",
+         y = "Odds ratio of passing the Bechdel test",
+         title = "Proportion of female writers vs. passing the Bechdel test in movies",
+         subtitle = "When all writers are female, passing the Bechdel test is 8 times more likely compared to an all male writer team.")
+```
+
+### ROC curve
+
+Finally, we will create a ROC curve and calculate its AUC to see how efficiently our model can predict the outcome, based on the predictors.
+
+```{r}
+mod_pred <-
+    augment(bechdel_model, type.predict = "response") %>% 
+    transmute(truth = as.factor(bechdel_pass), 
+              estimate = .fitted)
+```
+
+
+The AUC for the model is ok, but not great: `r roc_auc(data = mod_pred, truth, estimate, event_level = "second")$.estimate %>% percent()`.
+
+```{r}
+roc_bechdel <- roc_curve(mod_pred, truth, estimate, event_level = "second")
+    
+autoplot(roc_bechdel) +
+    scale_x_continuous(labels = percent_format()) +
+    scale_y_continuous(labels = percent_format()) +
+    labs(title = "ROC curve for the model")
+
+
+```
+
+# Improvement ideas
+
+- It would be possible to create a more comprehensive proportion of females variable, taking into account the director(s) along with the writers. 
+- Gender classification could be improved by tinkering with the parameters of the gender package.
+- Other types of models could be more useful, e.g. random forest.
+- The words from the description of the movie could be added as predictors.
