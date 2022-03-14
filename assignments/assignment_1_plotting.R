@@ -10,7 +10,7 @@ library(tidyverse)
 # - Use the "datasets/expedition" dataset, which is a summarized version of the above mentioned dataset. `expedition <- read_csv("datasets/expeditions.csv")`
 # - The bar colors use the viridis palette and the light theme.
 
-expedition <- read_csv("datasets/expeditions.csv")
+expedition <- read_csv("https://raw.githubusercontent.com/nthun/intro-to-R-2022-03/master/datasets/expeditions.csv")
 
 
 
@@ -24,7 +24,7 @@ expedition <- read_csv("datasets/expeditions.csv")
 # - To make the x axis breaks pretty, use `scales::pretty_breaks()`, to make the y axis labels comma formatted, use `scales::comma_format()`.
 # - The line size is 1.2, the colors are from the brewer "Dark2" palette. The theme is set to minimal.
 
-phd <- read_csv("datasets/phd.csv")
+phd <- read_csv("https://raw.githubusercontent.com/nthun/intro-to-R-2022-03/master/datasets/phd.csv")
 
 
 
@@ -39,6 +39,4 @@ phd <- read_csv("datasets/phd.csv")
 # - The point size is 2. The theme is set to light. Use the default color palette.
 
 
-commute <- read_csv("datasets/commute")
-
-
+commute <- read_csv("https://raw.githubusercontent.com/nthun/intro-to-R-2022-03/master/datasets/commute.csv")
