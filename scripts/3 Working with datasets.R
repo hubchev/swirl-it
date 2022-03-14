@@ -44,8 +44,27 @@ setwd("d:/download")
 setwd("temp")
 getwd()
 
+# In the file path, you can either use / or \\ to separate folder names.  
+
+# Tibbles ----------------------------------------------------------------------
+# Tibbles are the tidyverse variants of data frames. Features:
+# Always keep the source data type (e.g. character instead of factor)
+# Improved printing (e.g. also shows type)
+# Tibble is stricter than data frames in subsetting or slicing, 
+# This means that errors won't go unnoticed 
+
+# Data reader functions from tidyverse packages always read into tibble by default.
+# It is easy to see the difference between base and tidyverse variants, as tidy
+# variants always use the _ as a separator in function name, while base uses .
+
+read.csv("datasets\\movies.csv")
 
 library(readr)
+read_csv("datasets\\movies.csv")
+
+# I suggest to always use the tidyverse reading functions
+
+# Reading different data formats ------------------------------------------
 
 # A very common file format in the data analysis community is .csv. It means comma separated values, which is a quite literal description. It is a simple text file, but commas distinguish variables and values from each other. You can import a csv file using
 

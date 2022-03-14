@@ -31,22 +31,55 @@ things2[[2]]
 
 things2[[4]][[2]]
 
+# List elements can also be named
+
+things3 <-
+    list(
+        x = 1:5,
+        letters = letters,
+        nothing = NULL,
+        fruits = list(orange = "orange", apple = "apple")
+    )
+
+things3
+
+# Indexing is also possible through names
+
+things3[["x"]]
+
+things3$x
+
+things3$fruits$orange
+
 # Data frames are restricted lists, meaning that practically it is a list of 
-# variables (vectors). 
-
-
-# Tibbles ----------------------------------------------------------------------
-
-data.frame(x = data.frame(x = 1:4))
+# variables (vectors). Because of this, data frames can also have variables that
+# contain lists.
 
 # Tibbles can be nested and unnested
 
-# Iteration --------------------------------------------------------------------
+tibble(x = list(x = 1:4))
 
+# Iteration --------------------------------------------------------------------
+# Iteration is when we execute the same thing several times. 
+# We have to define the sequence of things that we want to iterate through
+
+for (i in 1:12){print(i)}
 
 # Iteration without loops
 
+lapply(1:12, function(x) print(x))
 
+# The tidyverse variant is much more concise, and the output is more consistent
+
+map(1:12, print)
+
+# We can explicitly use a map function to return a character vector instead
+
+map_chr(1:12, print)
+
+# Mind that if we use another type, it crashes
+
+map_int(1:12, print)
 
 # Control structures ------------------------------------------------------
 
@@ -112,15 +145,9 @@ for (i in 1:12){
 
 library(purrr)
 
-map(1:12, bottles)
-
-# We can explicitly use a map function to return a character vector instead
-
 map_chr(1:12, bottles)
 
-# Mind that if we use another type, it crashes
 
-map_int(1:12, bottles)
 
 
 
