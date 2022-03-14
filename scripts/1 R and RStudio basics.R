@@ -4,7 +4,7 @@
 
 21 + 16
 
-# You will see the result of the operiation is:
+# You will see the result of the operation is:
 # [1] 37
 
 # By the way, you may have noticed that text that starts with "#" has a different color. These are the comments. You can have as many comment in a script as you want. The "#" Does not have to be in the beginning of the line, but everything after it will count as comment.

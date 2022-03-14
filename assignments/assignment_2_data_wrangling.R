@@ -7,8 +7,6 @@
 
 # Read the cocktail dataset from: <https://github.com/nthun/cocktail-balance> You can also find the codebook there.
 
-cocktail <- read_tsv("https://raw.githubusercontent.com/nthun/cocktail-balance/master/cocktail_data.tsv")
-
 
 ## 2. Transform the data table and clean the ingredient variable!
 

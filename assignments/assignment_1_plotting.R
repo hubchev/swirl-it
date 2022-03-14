@@ -14,7 +14,6 @@ expedition <- read_csv("https://raw.githubusercontent.com/nthun/intro-to-R-2022-
 
 
 
-
 # Task 2: PhDs awarded
 
 # The 2019-02-19 TidyTueday dataset is about phd-s awarded by year and field. 
