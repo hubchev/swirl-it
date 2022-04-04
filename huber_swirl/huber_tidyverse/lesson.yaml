@@ -1,0 +1,169 @@
+- Class: meta
+  Course: huber_swirl
+  Lesson: huber_tidyverse
+  Author: Prof. Dr. Stephan Huber
+  Type: Standard
+  Organization: Hochschule Fresenius
+  Version: 1.0.0
+
+- Class: text
+  Output: "This lesson should help you to understand why the 'tidyverse' world is interesting. Working with R is easier with tidyverse!"
+
+- Class: text
+  Output: "The tidyverse is an collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
+
+- Class: text
+  Output: Developed by RStudio's chief scientist Hadley Wickham, tidyverse provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.
+
+- Class: video
+  Output: Open the tidyverse website and see what all is involved. www.tidyverse.org/packages/
+  VideoLink: www.tidyverse.org/packages/
+
+- Class: text
+  Output: The Tidyverse introduces a set of useful data analysis packages to help streamline your work in R. In particular, the Tidyverse was designed to address the top three common issues that arise when dealing with data analysis in R functions.
+  
+- Class: text
+  Output: Results obtained from a base R function often depend on the type of data being used.
+  
+- Class: text
+  Output: When R expressions are used in a non-standard way, they can confuse beginners.
+  
+- Class: text
+  Output: Hidden arguments often have various default operations that beginners are unaware of.
+
+- Class: text
+  Output: I would like to briefly introduce you to the most important packages
+
+- Class: text
+  Output: dplyr is actually not only a pliers, but a whole toolbox of functions to manipulate the dataset the way we need it. No, this is not about p-hacking or faking results! It's about data manipulation and accesses, calculating new variables, looking only at certain subsets of data... so the basics before we can start with a meaningful data analysis.
+
+- Class: text
+  Output: tidyr helps us to get a 'clean' dataset. That means a well structured dataset where we can find everything well. Also it helps us to create two different types of data formats (wide and long). Some functions in R like to be fed with a wide data set, others with the long format.
+
+- Class: video
+  Output: Hadley Wickham is the main developer of the whole tidyverse and the chief researcher of RStudio. His book 'R for Data Science' is great. Please give chapter 3 'Data visualisation' a reading after you have finished this swirl lesson (https://r4ds.had.co.nz/data-visualisation.html)
+  VideoLink: https://r4ds.had.co.nz/data-visualisation.html
+
+- Class: text
+  Output: Another package is tibble. It is the name of the package, but also of the data structure that can be created with it. Basically, a tibble is a data frame. However, a tibble doesn't do weird conversions and gives more error messages when something goes wrong. That means less weird things happen automatically and there is more information about where problems come from.
+
+- Class: video
+  Output: Read chapter 4 'Workflow basics' of the book  'R for Data Science' now. Here you can review what you already know, but also learn a few new aspects. (It's not very long). (https://r4ds.had.co.nz/workflow-basics.html)
+  VideoLink: https://r4ds.had.co.nz/workflow-basics.html
+
+- Class: text
+  Output: I am serious. Read it now!
+  
+- Class: text
+  Output: And don't forget the exercises of chapter 4. Try them now!
+  
+- Class: video
+  Output: If you struggle with some exercises in the book 'R for Data Science' you can look at the book 'R for Data Science. Exercise Solutions' by Jeffrey B. Arnold. This nice guy solved everything. (https://jrnold.github.io/r4ds-exercise-solutions/)
+  VideoLink: https://jrnold.github.io/r4ds-exercise-solutions/
+  
+- Class: text
+  Output: An important tool is the so called 'pipe'. It comes from the package 'magrittr' and is automatically loaded by packages from the tidyvers. So it is always automatically available to you as well.
+
+- Class: text
+  Output: At the beginning of this lesson, tidyverse was already loaded. (If it was not already installed, Swirl asked you if it should be installed). You can also load tidyverse manually with 'library(tidyverse)'.
+
+- Class: text
+  Output: Now what is this 'pipe'? The pipe looks like this '%>%'. The key combination CTRL + SHIFT + M (CMD + SHIFT + M for OSX) creates the pipe for you. There are also special pipes, but we are not interested in them for now.
+
+- Class: text
+  Output: How does this help us? Pipe allows us to write our R code in a form that is much easier to read and understand.
+
+- Class: text
+  Output: Let's look at an example. Let us load the data set 'dataset'. This data should already be loaded in your environment. I am now, for some reason, interested in the median income. However, only from people who have job 1 and have more than two friends. Feel free to look at the dataset again so you know what it's about. Do you remember how to do this?
+  
+- Class: cmd_question
+  Output: Let's print first 10 rows of the data set 'dataset' by typing 'head(dataset, n=10)'
+  CorrectAnswer: head(dataset, n=10)
+  AnswerTests: omnitest(correctExpr='head(dataset, n=10)')
+  Hint: Just copy this code into the console and push Enter head(dataset, n=10)
+
+- Class: cmd_question
+  Output: One possibility would be this code 'mean(dataset[dataset$job==1 & dataset$friends >2, c('income')])'. Don't be scared! We'll go through everything step by step. Copy this code into the console and run it.
+  CorrectAnswer: mean(dataset[dataset$job==1 & dataset$friends >2, c('income')])
+  AnswerTests: omnitest(correctExpr='mean(dataset[dataset$job==1 & dataset$friends >2, c("income")])')
+  Hint: Just copy this code into the console and push Enter 'mean(dataset[dataset$job==1 & dataset$friends >2, c('income')])''
+
+- Class: text
+  Output: We have a nesting of functions here. We have to work our way from the inside to the outside. So let us look at this part 'dataset[dataset$job==1 & dataset$friends >2, c('income')]'
+
+- Class: text
+  Output: We access the dataset and make a data access (i.e. we use square brackets [ ]).
+
+- Class: text
+  Output: Do you know how the access works? It works like this 'data [rows, columns]'. Each row contains the data for one person. We want only the rows, or only the people who have job 1. So the column job in the dataset should have the value 1 'dataset$job == 1'. Furthermore the column friends should be greater than two and 'dataset$friends >2'.
+
+- Class: text
+  Output: If we would now type dataset[dataset$job == 1 & dataset$friends > 2,] R will give us all rows where this is true. In addition, R outputs all columns to us. We have not told it anything else.
+
+- Class: text
+  Output: However, we are only interested in the values of the income column. Therefore we type 'dataset[dataset$job == 1 & dataset$friends > 2, c('income')]'
+
+- Class: text
+  Output: Note, we would not necessarily need to write c() around 'income'. R only accepts one specification for the columns to be displayed. Here we want only one column and have no problem. However, if we want income and neuroticism to be displayed, we can't(!) just write dataset[... , 'income', 'neuroticism'].
+
+- Class: text
+  Output: So we would have to use dataset[... , c('income', 'neuroticism')]. c() creates a vector with the two elements. Thus, it is only one element for R and R knows what to do.
+
+- Class: cmd_question
+  Output: Let's illustrate this again with another example. We will now use the function mean(). Type ?mean to get information about the function. (We use the function from the 'base' package, which is always available to us).
+  CorrectAnswer: ?mean
+  AnswerTests: omnitest(correctExpr='?mean')
+  Hint: Type ?mean
+
+- Class: text
+  Output: You should now see the help for the mean function at the bottom right. We need to pass an object x to the function. We can use comma to give the function more arguments 'trim' and 'na.rm'
+
+- Class: cmd_question
+  Output: Now type 'mean(10,20,30)'     
+  CorrectAnswer: mean(10,20,30)
+  AnswerTests: omnitest(correctExpr='mean(10,20,30)')
+  Hint: Come on, you do not need help here, do you? If you are to lazy to follow the instructions type in 'skip()'
+
+- Class: text
+  Output: R interprets 10 as the object x. R interprets 20 and 30 as further arguments of the function that do something. But we wanted to have the mean value of 10,20,30.
+
+- Class: cmd_question
+  Output: Now type 'mean(c(10,20,30))'. We now give the function mean a vector with the numbers 10, 20 and 30. The whole vector is now understood as the object x of the function, with the contents 10, 20 and 30. Now we also get the correct result - yay! Try it out.
+  CorrectAnswer: mean(c(10,20,30))
+  AnswerTests: omnitest(correctExpr='mean(c(10,20,30))')
+  Hint: Type mean(c(10,20,30))
+
+- Class: text
+  Output: The important point here is that R can only know what to do if we 'feed' it correctly. If a command does not work, we can troubleshoot here.
+
+- Class: text
+  Output: But now back to the pipe... We used dataset[dataset$job == 1 & dataset$friends > 2, c('income')] to select the income of all people who have job 1 and have more than two friends. The results are output to us in a vector.
+
+- Class: text
+  Output: Around this result we now build the function mean(). Now we have completely understood the code from before. But hand on heart, it was quite a way to get there...
+
+- Class: text
+  Output: Now we will do exactly the same only with the pipe and functions from dplyr.
+
+- Class: cmd_question
+  Output: Run this code 'dataset %>% filter(job==1, friends >2) %>% summarise(mean(income))'
+  CorrectAnswer: dataset %>% filter(job==1, friends >2) %>% summarise(mean(income))
+  AnswerTests: omnitest(correctExpr='dataset %>% filter(job==1, friends >2) %>% summarise(mean(income))')
+  Hint: Type skip()
+
+- Class: text
+  Output: As you can see, the result is the same as before. Look at the code 'dataset %>% filter(job==1, friends >2) %>% summarise(mean(income))'. Can you imagine what the code does? Do you find it easier to read?
+
+- Class: text
+  Output: First, we tell R what data we are talking about 'dataset'. Now we 'move the pipe'. We pass the dataset to the next step. With the function filter() we now pick out only the cases where the job is 1 and there are more than two friends. We pass the result to the next function. With summarise() we can request a summary. i.e., we would like to have the mean value of the income.
+
+- Class: text
+  Output: So with the pipe we can reach our goal step by step. The intermediate steps are automatically passed on to the next step.
+
+- Class: text
+  Output: So the pipe can help us. But it is also not a universal remedy. When we create very long concatenations, it becomes harder and harder to find errors. Sometimes it is also useful to save or at least view the intermediate results.
+
+- Class: text
+  Output: I hope that you did not get confused, but realized that the Pipe can be very useful. If you got a small overview here and an idea of what all this is useful for you, then you have already learned more than enough in this lesson. But you can also read chapter 18 of the book 'R for data science'. Time for a break!
+
+

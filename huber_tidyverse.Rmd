@@ -1,0 +1,30 @@
+---
+title: huber_tidyverse
+output:
+  html_document:
+    theme: spacelab
+---
+
+```{r, strip.white = TRUE, echo=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(swirl))
+
+# Code placed in this file fill be executed every time the
+      # lesson is started. Any variables created here will show up in
+      # the user's working directory and thus be accessible to them
+      # throughout the lesson.
+
+.get_course_path <- function(){
+  tryCatch(swirl:::swirl_courses_dir(),
+           error = function(c) {file.path(find.package("swirl"),"Courses")}
+  )
+}
+
+dataset <- read.delim(file.path(.get_course_path(), "huber_swirl", "huber_tidyverse", "Lecturer Data.dat"), header=T)
+``` 
+
+This lesson should help you to understand why the 'tidyverse' world is interesting. Working with R is easier with tidyverse! 
+
+The tidyverse is an collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. 
+
+Developed by RStudio's chief scientist Hadley Wickham, tidyverse provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks. 
+
