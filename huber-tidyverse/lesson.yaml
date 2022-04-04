@@ -1,10 +1,11 @@
 - Class: meta
-  Course: huber_swirl
-  Lesson: huber_tidyverse
+  Course: swirl-it
+  Lesson: huber-tidyverse
   Author: Prof. Dr. Stephan Huber
   Type: Standard
   Organization: Hochschule Fresenius
-  Version: 1.0.0
+  Version: 1.2.0
+
 
 - Class: text
   Output: "This lesson should help you to understand why the 'tidyverse' world is interesting. Working with R is easier with tidyverse!"
