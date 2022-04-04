@@ -9,4 +9,4 @@
   )
 }
 
-dataset <- read.delim(file.path(.get_course_path(), "huber_swirl", "huber_tidyverse", "Lecturer Data.dat"), header=T)
+dataset <- read.delim(file.path(.get_course_path(), "huber_tidyverse", "Lecturer Data.dat"), header=T)
