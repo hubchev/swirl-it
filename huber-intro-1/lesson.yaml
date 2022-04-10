@@ -70,12 +70,6 @@
   CorrectAnswer: install.packages("geometry")
   AnswerTests: omnitest(correctExpr='install.packages("geometry")') 
   Hint: Type install.packages("geometry") or skip() if you are not interested in installing packages.  
-  
-- Class: cmd_question
-  Output: Check if you've installed the geometry package sucessfully by typing installed.packages() to the Console.
-  CorrectAnswer: installed.packages()
-  AnswerTests: omnitest(correctExpr='installed.packages()') 
-  Hint: Type installed.packages() or skip() if you are not interested in your packages.  
 
 - Class: cmd_question  
   Output: After having installed a package, you need to load the package. That is a bit anoying but essential. Type in library(geometry) in the Console. You also did this for the swirl package (otherwise you couldn't have been doing these exercises). 
