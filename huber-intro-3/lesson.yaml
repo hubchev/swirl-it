@@ -1,0 +1,219 @@
+- Class: meta
+  Course: A (very) short introduction to R
+  Lesson: Module 3
+  Author: Claudia Brauer
+  Type: Standard
+  Organization: Wageningen University - Hydrology and Quantitative Water Management Group
+  Version: 0
+
+- Class: text
+  Output: Welcome to the third (and last) module of 'A (very) short introduction to R'.
+
+- Class: text  
+  Output: Before you start working, you should set your working directory to where all your data and script files are or should be stored. Within RStudio you can go to 'Tools'> 'Set working directory'. Please do this now.
+
+- Class: text
+  Output: There are many ways to write data from within the R environment to files, and to read data from files. We will illustrate one way here. The following examples illustrate the essential.
+
+- Class: cmd_question
+  Output: Construct a simple example data frame and store it in the variable d by typing d = data.frame(a = c(3,4,5), b = c(12,43,54)) .
+  CorrectAnswer: d = data.frame(a = c(3,4,5), b = c(12,43,54))
+  AnswerTests: omnitest(correctExpr='d = data.frame(a = c(3,4,5), b = c(12,43,54))') 
+  
+- Class: cmd_question
+  Output: Ask R what d is.
+  CorrectAnswer: d
+  AnswerTests: omnitest(correctExpr='d')   
+
+- Class: cmd_question
+  Output: write this data frame to a text file called tst0.txt by typing write.table(d, file="tst0.txt", row.names=FALSE). The argument row.names=FALSE prevents that row names are written to the file. Because nothing is specified about col.names, the default option col.names=TRUE is chosen and column names are written to the file.
+  CorrectAnswer: write.table(d, file="tst0.txt", row.names=FALSE)
+  AnswerTests: omnitest(correctExpr='write.table(d, file="tst0.txt", row.names=FALSE)')  
+  Hint: Type write.table(d, file="tst0.txt", row.names=FALSE)
+  
+- Class: text
+  Output: The file is now stored in your working directory (the folder ending with swirl). Find it on your computer and open the file in an editor (such as Notepad) to see what it looks like.
+  
+- Class: cmd_question
+  Output: Read the file into a data frame. Type d2 = read.table(file="tst0.txt", header=TRUE).
+  CorrectAnswer: d2 = read.table(file="tst0.txt", header=TRUE)
+  AnswerTests: omnitest(correctExpr='d2 = read.table(file="tst0.txt", header=TRUE)')  
+
+- Class: text
+  Output: Note that the column names are also read (because you specified header=TRUE). The data frame also appears in the environment window. Click on it to see what it looks like.
+
+- Class: script
+  Output: Make a file called tst1.txt in Notepad from the example in the script that opens up and store it in your working directory. Modify the script such that it reads this file, multiplies the column called g by 5 and stores it as tst2.txt. Save the script and type submit().
+  AnswerTests: test_readfiles()
+  Script: readfiles.R
+  
+#- Class: cmd_question
+#  Output: Now something different. Compute the the square root of a vector of 100 random numbers. What happens? 
+#  CorrectAnswer: sqrt(rnorm(100))
+#  AnswerTests: omnitest(correctExpr='sqrt(rnorm(100))') 
+#  Hint: Use the function rnorm within the function sqrt. 
+
+- Class: text
+  Output: When you work with real data, you will encounter missing values because instrumentation failed or because you didn't want to measure in the weekend. When a data point is not available, you write NA instead of a number. 
+
+- Class: cmd_question
+  Output: Type j = c(1,2,NA).
+  CorrectAnswer: j = c(1,2,NA)
+  AnswerTests: omnitest(correctExpr='j = c(1,2,NA)') 
+
+- Class: cmd_question
+  Output: Compute the maximum of this vector j.
+  CorrectAnswer: max(j)
+  AnswerTests: omnitest(correctExpr='max(j)') 
+  Hint: Use the fucntion called max.
+
+- Class: text
+  Output: Computing statistics of incomplete data sets is strictly speaking not possible. Maybe the largest value occurred during the weekend when you did not measure. Therefore, R will say that it doesn't know what the largest value of j is.
+
+- Class: cmd_question
+  Output: If you don't mind about the missing data and want to compute the statistics anyway, you can add the argument na.rm=TRUE. (Should I remove the NAs? Yes!). Try this.
+  CorrectAnswer: max(j, na.rm=TRUE)
+  AnswerTests: omnitest(correctExpr='max(j, na.rm=TRUE)') 
+  Hint: Type max(j, na.rm=TRUE).
+
+- Class: text
+  Output: The exercises you did before were nearly all with numbers. Sometimes you want to specify something which is not a number, for example the name of a measurement station or data file. In that case you want the variable to be a character string instead of a number. 
+
+- Class: text
+  Output: An object in R can have several so-called classes. The most important three are numeric, character and POSIX (date-time combinations). You can ask R what class a certain variable is by typing class(...). 
+
+- Class: text
+  Output: To tell R that something is a character string, you should type the text between apostrophes, otherwise R will start looking for a defined variable with the same name.
+
+- Class: cmd_question
+  Output: Define this variable m = "apples" .
+  CorrectAnswer: m = "apples"
+  AnswerTests: omnitest(correctExpr='m = "apples"') 
+
+- Class: cmd_question
+  Output: Look how the variable m is mentioned in the environment window. Now try n = pears (so without the apostrophes). Look at the error message you get and then type n = "pears".
+  CorrectAnswer: n="pears"
+  AnswerTests: correctExpr='n="pears"'
+
+- Class: cmd_question
+  Output: Of course, you cannot do computations with character strings. Try m+2 . Look at the error message you get and type class(m).
+  CorrectAnswer: class(m)
+  AnswerTests: correctExpr='class(m)'
+
+- Class: text
+  Output: Dates and times are complicated. R has to know that 3 o'clock comes after 2:59 and that February has 29 days in some years. The easiest way to tell R that something is a date-time combination is with the function strptime.
+
+- Class: cmd_question
+  Output: Create a vector of dates by typing (or copy-pasting) date1 = strptime( c("20170225230000", "20170226000000", "20170226010000"), format="%Y%m%d%H%M%S") . 
+  CorrectAnswer: date1 = strptime( c("20170225230000", "20170226000000", "20170226010000"), format="%Y%m%d%H%M%S")
+  AnswerTests: omnitest(correctExpr='date1 = strptime( c("20170225230000", "20170226000000", "20170226010000"), format="%Y%m%d%H%M%S")') 
+
+- Class: text
+  Output: The numbers in the vectors are between apostrophes because the function strptime needs character strings as input. The argument format specifies how the character string should be read. In this case the year is denoted first (%Y), then the month (%m), day (%d), hour (%H), minute (%M) and second (%S). You don't have to specify all of them, as long as the format corresponds to the character string.
+
+- Class: cmd_question
+  Output: Ask R what date1 is. Also see how date1 appears in the environment window.
+  CorrectAnswer: date1
+  AnswerTests: omnitest(correctExpr='date1') 
+
+- Class: script
+  Output: Make a graph with on the x-axis today, Sinterklaas 2017 and your next birthday and on the y-axis the number of presents you expect on each of these days. Type this in the script, save it and type submit().
+  AnswerTests: test_plotdates()
+  Script: plotdates.R
+  
+- Class: text
+  Output: When you are building a larger program than in the examples above or if you are using someone else's scripts, you may encounter some programming statements. In the second half of this module we describe a few tips and tricks.
+
+- Class: text
+  Output: The if-statement is used when certain computations should only be done when a certain condition is met (and maybe something else should be done when the condition is not met). 
+
+- Class: script
+  Output: The script that opens up contains an if statement. Read it (you don't have to change anything) and type submit() to execute the script.
+  AnswerTests: test_ifstatement()
+  Script: ifstatement.R
+
+- Class: cmd_question
+  Output: Ask what d is.
+  CorrectAnswer: d
+  AnswerTests: omnitest(correctExpr='d') 
+
+- Class: text
+  Output: In this case, the condition is met and d has been assigned the value 2.
+
+- Class: cmd_question
+  Output: To get a subset of points in a vector for which a certain condition holds, you can use a shorter method. Make one vector with a = c(1,2,3,4) .
+  CorrectAnswer: a = c(1,2,3,4)
+  AnswerTests: omnitest(correctExpr='a = c(1,2,3,4)') 
+
+- Class: cmd_question
+  Output: Make another vector with b = c(5,6,7,8) .
+  CorrectAnswer: b = c(5,6,7,8)
+  AnswerTests: omnitest(correctExpr='b = c(5,6,7,8)') 
+  
+- Class: cmd_question
+  Output: Now type f = a[b==5 | b==8]
+  CorrectAnswer: f = a[b==5 | b==8]
+  AnswerTests: omnitest(correctExpr='f = a[b==5 | b==8]') 
+
+- Class: cmd_question
+  Output: And ask what f is.
+  CorrectAnswer: f
+  AnswerTests: omnitest(correctExpr='f')
+  Hint: Type f.
+  
+- Class: text
+  Output: The vector f is composed of those elements of vector a for which b equals 5 or b equals 8. 
+  
+- Class: text
+  Output: Note the double = in the condition. Other conditions (also called logical or Boolean operators) are <, >, != (not equal to), <= (less than or equal to) and >= (greater than or equal to). 
+  
+- Class: text
+  Output: To test more than one condition in one if-statement, use & if both conditions have to be met ('and') and | if at least one of the conditions has to be met ('or').
+
+- Class: text
+  Output: If you want to model a time series, you usually do the computations for one time step and then for the next and the next, etc. Because nobody wants to type the same commands over and over again, these computations are automated in for-loops. 
+
+- Class: text
+  Output: In a for-loop you specify what has to be done and how many times. To tell how many times, you specify a so-called counter.
+
+- Class: script
+  Output: The script that opens up contains a for-loop. Read it (you don't have to change anything) and type submit() to execute the script.
+  AnswerTests: test_forloop()
+  Script: forloop.R  
+
+- Class: script
+  Output: Make a vector called z containing numbers from 1 to 100 in the script that opens up. Make a for-loop which runs through the whole vector. Within the for-loop, multiply the elements which are smaller than 5 or larger than 90 with 10 and the other elements with 0.1.
+  AnswerTests: test_exercise_forloop()
+  Script: exercise_forloop.R
+
+- Class: text
+  Output: You can also program functions yourself. These work in the same way as pre-programmed R functions.
+
+- Class: script
+  Output: The script that opens up contains an example of a self-programmed function. Read it (you don't have to change anything) and type submit() to execute the script.
+  AnswerTests: test_function()
+  Script: function.R
+  
+- Class: cmd_question
+  Output: You can see that the function appeared in your environment window (you may have to scroll down). To call the function with arguments 3 and 5, type fun1(arg1 = 3, arg2 = 5) . 
+  CorrectAnswer: fun1(arg1 = 3, arg2 = 5)
+  AnswerTests: any_of_exprs('fun1(arg1 = 3, arg2 = 5)','fun1(3,5)')
+  Hint: Type fun1(arg1 = 3, arg2 = 5).
+
+- Class: text
+  Output: Try to understand the answer you get. When you call the function, R fills out the value 3 for each occurrence of arg1 and 5 for arg2. 
+  
+- Class: script
+  Output: Write a function (called fun2) for the previous exercise, so that you can feed it any vector you like (as argument). Use a for-loop in the function to do the computation with each element. Use the standard R function length in the specification of the counter. 
+  AnswerTests: test_exercise_function()
+  Script: exercise_function.R 
+  
+- Class: text
+  Output: Actually, people often use more for-loops than necessary. The previous exercise can be done more easily and quickly without a for-loop but with regular vector computations.
+  
+- Class: text
+  Output: You finished 'A (very) short introduction to R'. You can use the pdf version of this short course as a reference. The last two pages of that document also contains a list of useful commands that you can use as inspiration for your programming. 
+  
+
+  
+
