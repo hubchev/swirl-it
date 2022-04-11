@@ -1,32 +1,34 @@
 - Class: meta
-  Course: A (very) short introduction to R
-  Lesson: Module 2
-  Author: Claudia Brauer
+  Course: swirl-it
+  Lesson: huber-intro-2
+  Author: Stephan Huber
   Type: Standard
-  Organization: Wageningen University - Hydrology and Quantitative Water Management Group
-  Version: 0
-
+  Organization: Hochschule Fresenius
+  Version: 1.2
 
 - Class: text
-  Output: Welcome to the second module of 'A (very) short introduction to R'.
+  Output: Welcome to the second module. Again, if you find any errors or if you have suggestions for improvement, please let me know via stephan.huber@hs-fresenius.de .
 
 - Class: cmd_question
-  Output: Before you start working, you should set your working directory to where all your data and script files are or should be stored. Within RStudio you can go to 'Session'> 'Set working directory'. Please do this now.
+  Output: Before you start working, you should set your working directory to where all your data and script files are or should be stored. Within RStudio you can go to 'Session'> 'Set working directory', or you can type in setwd(YOURPATH). Please do this now.
   CorrectAnswer: setwd(getwd())
   AnswerTests: expr_uses_func('setwd')
   Hint: Instead of clicking, you can also type setwd("path"), where you replace "path" with the location of your folder, for example setwd("D:/R/swirl").
 
 - Class: text
-  Output: R is an interpreter that uses a command line based environment. This means that you have to type commands, rather than use the mouse and menus. This has the advantage that you do not always have to retype all commands and are less likely to get complaints of arms, neck and shoulders.
+  Output: R is an interpreter that uses a command line based environment. This means that you have to type commands, rather than use the mouse and menus. This has many advantages. Foremost, it is easy to get a full transcript of everything you did and you can replicate your work easy. 
 
 - Class: text
-  Output: You can store your commands in files, the so-called scripts. These scripts have typically file names with the extension .R, e.g. foo.R. 
+  Output: As already mentioned, all commands in R are functions where arguments come (or do not come) in round brackets after the function name.
+
+- Class: text
+  Output: You can store your workflow in files, the so-called scripts. These scripts have typically file names with the extension, e.g., foo.R . 
   
 - Class: text
-  Output: You can open an editor window to edit these files by clicking 'File' and 'New'. Try this. Under 'File' you also find the options 'Open file...', 'Save' and 'Save as'.
+  Output: You can open an editor window to edit these files by clicking 'File' and 'New'. Try this. Under 'File' you also find the options 'Open file...', 'Save' and 'Save as'. Alternatively, just type CTRL+SHIFT+N. 
 
 - Class: text
-  Output: You can run (send to the console window) part of the code by selecting lines and pressing CTRL+ENTER or click 'Run' in the editor window. If you do not select anything, R will run the line your cursor is on. 
+  Output: You can run (send to the Console window) part of the code by selecting lines and pressing CTRL+ENTER or click 'Run' in the editor window. If you do not select anything, R will run the line your cursor is on. 
   
 - Class: text
   Output: You can always run the whole script with the console command source, so e.g. for the script in the file foo.R you type source('foo.R'). You can also click 'Run all' in the editor window or type CTRL+SHIFT+S to run the whole script at once.
@@ -38,10 +40,10 @@
   Hint: Open the editor window with 'File' > 'New'. Type plot(rnorm(100)) in the script, save it as firstscript.R in the working directory. Then type source("firstscript.R") on the command line.
 
 - Class: cmd_question
-  Output: Run your script again. The plot will change because new numbers are generated.
+  Output: Run your script again with source("firstscript.R"). The plot will change because new numbers are generated.
   CorrectAnswer: source("firstscript.R")
   AnswerTests: omnitest(correctExpr='source("firstscript.R")') 
-  Hint: Type source("firstscript.R") again.
+  Hint: Type source("firstscript.R") again or type skip() if you are not interested.
   
 - Class: cmd_question
   Output: Vectors were already introduced, but they can do more. Make a vector with numbers 1, 4, 6, 8, 10 and call it vec1.
@@ -91,56 +93,18 @@
   Output: Matrices are nothing more than 2-dimensional vectors. To define a matrix, use the function matrix. Make a matrix with matrix(data=c(9,2,3,4,5,6),ncol=3) and call it mat.
   CorrectAnswer: mat=matrix(data=c(9,2,3,4,5,6),ncol=3) 
   AnswerTests: omnitest(correctExpr='mat = matrix(data=c(9,2,3,4,5,6), ncol=3)') 
-  Hint: Type mat=matrix(data=c(9,2,3,4,5,6),ncol=3).
-
-- Class: text  
-  Output: The argument data specifies which numbers should be in the matrix. Use either ncol to specify the number of columns or nrow to specify the number of rows. 
-
-- Class: cmd_question
-  Output: Put the numbers 31 to 60 in a vector named P. Use the function seq.
-  CorrectAnswer: P = seq(31,60)
-  AnswerTests: any_of_exprs('P = seq(31,60)', 'P = seq(31:60)','P=31:60', 'P = seq(31,60,1)', 'P = seq(from=31,to=60,by=1)')
-  Hint: Type ?seq for information on the function seq.
-
-- Class: cmd_question
-  Output: Put the numbers 31 to 60 in a matrix named Q with 6 rows and 5 columns. 
-  CorrectAnswer: Q=matrix(seq(31,60),nrow=6)
-  AnswerTests: any_of_exprs('Q = matrix(seq(31,60), nrow=6)', 'Q = matrix(seq(31:60), nrow=6)','Q = matrix(31:60, nrow=6)','Q = matrix(P, nrow=6)','Q=matrix(seq(31,60),ncol=5)', 'Q=matrix(seq(31:60),ncol=5)','Q = matrix(31:60, ncol=5)','Q = matrix(31:60, ncol=5)')
-  Hint: Type ?matrix for information on the function matrix.
- 
-- Class: cmd_question
-  Output: Ask R what Q looks like.
-  CorrectAnswer: Q
-  AnswerTests: omnitest(correctExpr='Q') 
-  Hint: Type Q.
-  
-- Class: cmd_question
-  Output: You can also click on Q in the environment window. Look at the different ways scalars, vectors and matrices are denoted in the environment window. Matrix operations are similar to vector operations. Elements of a matrix can be addressed in the usual way as [row,column]. Select the element on the first row and in the second column of the matrix called mat.
-  CorrectAnswer: mat[1,2] 
-  AnswerTests: omnitest(correctExpr='mat[1,2]') 
-  Hint: Type mat[1,2].
-
-- Class: cmd_question
-  Output: When you want to select a whole row, you leave the spot for the column number empty (the other way around for columns of course). Select the second row.
-  CorrectAnswer: mat[2,] 
-  AnswerTests: omnitest(correctExpr='mat[2,]') 
-  Hint: Type mat[2,].
-
-- Class: cmd_question
-  Output: Many functions also work with matrices as argument. Compute the mean of mat.
-  CorrectAnswer: mean(mat)
-  AnswerTests: omnitest(correctExpr='mean(mat)') 
-  Hint: Type mean(mat).
+  Hint: Type mat=matrix(data=c(9,2,3,4,5,6),ncol=3) or type skip() if you are not interested.
 
 - Class: cmd_question
   Output: The third type of data structure treated here is the data frame. Time series are often ordered in data frames. A data frame is a matrix with names above the columns. This is nice, because you can call and use one of the columns without knowing in which position it is. Make a data frame with t = data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7)). 
-  CorrectAnswer: t = data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7))
-  AnswerTests: omnitest(correctExpr='t = data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7))') 
+  CorrectAnswer: t <- data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7))
+  AnswerTests: omnitest(correctExpr='t <- data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7))') 
 
 - Class: cmd_question
   Output: Ask R what t is.
   CorrectAnswer: t 
   AnswerTests: omnitest(correctExpr='t') 
+  Hint: Type t or skip() if you are not interested.
   
 - Class: cmd_question
   Output: The data frame is called t  and the columns have the names x, y and z. You can select one column by typing t$z. Try this.
@@ -156,7 +120,7 @@
   Output: Compute the mean of column z in data frame t.
   CorrectAnswer: mean(t$z)
   AnswerTests: any_of_exprs('mean(t$z)','mean(t[["z"]])')
-  Hint: Use function mean.
+  Hint: Use function mean or type skip() if you are not interested.
 
 - Class: text
   Output: In the following question you will be asked to modify a script that will appear as soon as you move on from this question. When you have finished modifying the script, save your changes to the script and type submit() and the script will be evaluated. There will be some comments in the script that opens up. Be sure to read them!
@@ -168,7 +132,7 @@
   Script: dataframe.R
   
 - Class: text
-  Output: Can you understand the results?
+  Output: Do you understand the results?
 
 - Class: cmd_question 
   Output: Another basic structure in R is a list. The main advantage of lists is that the `columns` (they are not really ordered in columns any more, but are more a collection of vectors) don't have to be of the same length, unlike matrices and data frames. Make this list L = list(one=1, two=c(1,2), five=seq(0, 1, length=5)).
@@ -195,7 +159,7 @@
   Output: Plotting is an important statistical activity. So it should not come as a surprise that R has many plotting facilities. Type plot(rnorm(100), type="l", col="gold"). 
   CorrectAnswer: plot(rnorm(100), type="l", col="gold") 
   AnswerTests: omnitest(correctExpr='plot(rnorm(100), type="l", col="gold")') 
-  Hint: The symbol between quotes after the type=, is the letter l, not the number 1.
+  Hint: The symbol between quotes after the type=, is the letter l, not the number 1. To see the result you can also just type skip().
 
 - Class: text  
   Output: Hundred random numbers are plotted by connecting the points by lines in a gold color.
@@ -216,11 +180,26 @@
   Output: Try to find out by experimenting what the meaning is of rgb, the last argument of rgb, lwd, pch, cex. Type play() on the command line to experiment. Modify lines 11, 12 and 13 of the script by putting your cursor there and pressing CTRL+ENTER. When you are finished, type nxt() and then ?par.
   CorrectAnswer: ?par
   AnswerTests: omnitest(correctExpr='?par')
-  Hint: Type ?par.
+  Hint: Type ?par or type skip() if you are not interested.
 
 - Class: text  
-  Output: You searched for par in the R help. This is a  useful page to learn more about formatting plots. Google 'R color chart' for a pdf file with a wealth of color options.
+  Output: You searched for par in the R help. This is a useful page to learn more about formatting plots. Google 'R color chart' for a pdf file with a wealth of color options.
 
 - Class: text  
   Output: To copy your plot to a document, go to the plots window, click the 'Export' button, choose the nicest width and height and click 'Copy' or 'Save'. 
+  
+- Class: text  
+  Output: After having almost completed the second learning module, you are getting closer to become a nerd as you know...
 
+- Class: text  
+  Output: ...that everything in R is stored in objects (values, vectors, matrices, lists, or data frames),
+
+- Class: text  
+  Output: ...that you should always work in scripts and send code from scripts to the Console,
+
+- Class: text  
+  Output: ...that you can do it if you don't give up. 
+  
+- Class: text  
+  Output: Please continue with the third module of this introduction.
+  

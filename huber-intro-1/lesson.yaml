@@ -8,7 +8,7 @@
 
   
 - Class: text  
-  Output: Welcome to this swirl course. If you find any errors or if you have suggestions for improvement, please let me know stephan.huber@hs-fresenius.de .
+  Output: Welcome to this swirl course. If you find any errors or if you have suggestions for improvement, please let me know via stephan.huber@hs-fresenius.de .
 
 - Class: text  
   Output: The RStudio interface consists of several windows. You can change the size of the windows by dragging the grey bars between the windows. We'll go through the most important windows now.
@@ -103,6 +103,12 @@
   CorrectAnswer: A <- 4
   AnswerTests: omnitest(correctExpr='A<-4') 
   Hint: Type A <- 4 or skip() if you are not interested in finding the solution on your own.
+
+- Class: text  
+  Output: The '<-' is the so-called assignment operator. It allows you to assign data to a named object in order to store the data.
+  
+- Class: text  
+  Output: Don't be confussed about the term object. All sorts of data are stored in so-called objects in R. All objects of a session are shown in the Environment window. In the second part of this course, I will introduce different data types. 
   
 - Class: text  
   Output: You can see that A appeared in the environment window in the top right corner, which means that R now remembers what A is.
