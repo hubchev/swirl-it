@@ -53,12 +53,9 @@
 - Class: text  
   Output: Instead of clicking, you can use the function setwd("/YOURPATH"). For example, setwd("/Users/MYNAME/MYFOLDER") or setwd("C:/Users/jenny/myrstuff"). Make sure that the slashes are forward slashes and that you do not forget the apostrophes. R is case sensitive, so make sure you write capitals where necessary. 
   
-- Class: cmd_question
-  Output: Whenever you want R to do something you need to use a function. It is like a command. All functions of R are organized in so-called packages or libraries. With the standard installation many packages are already  installed. However, many more exist and some of them are really cool. Now, type in installed.packages() to see all installed packages on your PC.
-  CorrectAnswer: installed.packages()
-  AnswerTests: omnitest(correctExpr='installed.packages()') 
-  Hint: Type installed.packages() or skip() if you are not interested in your packages.  
-
+- Class: text
+  Output: Whenever you want R to do something you need to use a function. It is like a command. All functions of R are organized in so-called packages or libraries. With the standard installation many packages are already  installed. However, many more exist and some of them are really cool. For example, with installed.packages() all installed packages are listed. Or, with swirl(), you started swirl.
+ 
 - Class: cmd_question
   Output: Of course, you can also go to the Packages window at the bottom right. If the box in front of the package name is ticked, the package is loaded (activated) and can be used. To see via Console which packages are loaded type in the console '(.packages())'
   CorrectAnswer: (.packages())

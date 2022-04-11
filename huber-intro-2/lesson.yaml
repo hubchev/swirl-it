@@ -47,9 +47,9 @@
   
 - Class: cmd_question
   Output: Vectors were already introduced, but they can do more. Make a vector with numbers 1, 4, 6, 8, 10 and call it vec1.
-  CorrectAnswer: vec1 = c(1,4,6,8,10)
-  AnswerTests: omnitest(correctExpr='vec1 = c(1,4,6,8,10)') 
-  Hint: Type vec1 = c(1,4,6,8,10).
+  CorrectAnswer: vec1 <- c(1,4,6,8,10)
+  AnswerTests: omnitest(correctExpr='vec1 <- c(1,4,6,8,10)') 
+  Hint: Type vec1 <- c(1,4,6,8,10).
 
 - Class: cmd_question
   Output: Elements in vectors can be addressed by standard [i] indexing. Select the 5th element of this vector by typing vec1[5].
@@ -59,9 +59,9 @@
 
 - Class: cmd_question
   Output: Replace the 3rd element with a new number by typing vec1[3]=12.
-  CorrectAnswer: vec1[3]=12 
-  AnswerTests: omnitest(correctExpr='vec1[3] = 12') 
-  Hint: vec1[3]=12.
+  CorrectAnswer: vec1[3] <- 12 
+  AnswerTests: omnitest(correctExpr='vec1[3] <- 12') 
+  Hint: vec1[3] <- 12.
 
 - Class: cmd_question
   Output: Ask R what the new version is of vec1.
@@ -71,9 +71,9 @@
 
 - Class: cmd_question
   Output: You can also see the numbers of vec1 in the environment window. Make a new vector vec2 using the seq() (sequence) function by typing seq(from=0, to=1, by=0.25) and check its values in the environment window.
-  CorrectAnswer: vec2=seq(from=0, to=1, by=0.25) 
-  AnswerTests: omnitest(correctExpr='vec2 = seq(from=0, to=1, by=0.25)') 
-  Hint: Type vec2 = seq(from=0, to=1, by=0.25).
+  CorrectAnswer: vec2 <-seq(from=0, to=1, by=0.25) 
+  AnswerTests: omnitest(correctExpr='vec2 <- seq(from=0, to=1, by=0.25)') 
+  Hint: Type vec2 <- seq(from=0, to=1, by=0.25).
 
 - Class: cmd_question
   Output: Type sum(vec1).
@@ -91,9 +91,9 @@
 
 - Class: cmd_question  
   Output: Matrices are nothing more than 2-dimensional vectors. To define a matrix, use the function matrix. Make a matrix with matrix(data=c(9,2,3,4,5,6),ncol=3) and call it mat.
-  CorrectAnswer: mat=matrix(data=c(9,2,3,4,5,6),ncol=3) 
-  AnswerTests: omnitest(correctExpr='mat = matrix(data=c(9,2,3,4,5,6), ncol=3)') 
-  Hint: Type mat=matrix(data=c(9,2,3,4,5,6),ncol=3) or type skip() if you are not interested.
+  CorrectAnswer: mat<-matrix(data=c(9,2,3,4,5,6),ncol=3) 
+  AnswerTests: omnitest(correctExpr='mat <- matrix(data=c(9,2,3,4,5,6), ncol=3)') 
+  Hint: Type mat <- matrix(data=c(9,2,3,4,5,6),ncol=3) or type skip() if you are not interested.
 
 - Class: cmd_question
   Output: The third type of data structure treated here is the data frame. Time series are often ordered in data frames. A data frame is a matrix with names above the columns. This is nice, because you can call and use one of the columns without knowing in which position it is. Make a data frame with t = data.frame(x = c(11,12,14), y = c(19,20,21), z = c(10,9,7)). 
@@ -136,8 +136,8 @@
 
 - Class: cmd_question 
   Output: Another basic structure in R is a list. The main advantage of lists is that the `columns` (they are not really ordered in columns any more, but are more a collection of vectors) don't have to be of the same length, unlike matrices and data frames. Make this list L = list(one=1, two=c(1,2), five=seq(0, 1, length=5)).
-  CorrectAnswer: L = list(one=1, two=c(1,2), five=seq(0, 1, length=5))
-  AnswerTests: omnitest(correctExpr='L = list(one=1, two=c(1,2), five=seq(0, 1, length=5))')
+  CorrectAnswer: L <- list(one=1, two=c(1,2), five=seq(0, 1, length=5))
+  AnswerTests: omnitest(correctExpr='L <- list(one=1, two=c(1,2), five=seq(0, 1, length=5))')
 
 - Class: cmd_question
   Output: The list L has names and values. You can type L to see the contents.
