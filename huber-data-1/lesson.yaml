@@ -35,14 +35,14 @@
     this sample of 100 people is REPRESENTATIVE of the entire US population.
 
 - Class: mult_question
-  Output: 'Let''s quickly test your understanding of the term REPRESENTATIVE. If you
+  Output: Lets quickly test your understanding of the term REPRESENTATIVE. If you
     were interested in studying the health of men living in the US, ages 18-25, which
-    sample would be more representative of the target population: a sample of 50 men
+    sample would be more representative of the target population-- a sample of 50 men
     who live in a nearby retirement home, or a sample of 50 men who are students at
-    a local university?'
+    a local university?
   AnswerChoices: Men living at the retirement home; College students
   CorrectAnswer: College students
-  AnswerTests: word= College students
+  AnswerTests: omnitest(correctVal='College students')
   Hint: Since your target population is all men ages 18-25 living in the US, which
     of these 2 sample populations more closely matches the population of interest?
 
