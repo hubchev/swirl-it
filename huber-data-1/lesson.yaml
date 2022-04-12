@@ -69,15 +69,11 @@
     of each method depends on the situation. Those three methods are called the MEAN,
     MEDIAN, and MODE.
 
-- Class: video
-  Output: Would you like to watch a brief video on mean, median, and mode?
-  VideoLink: http://youtu.be/h8EYEJ32oQ8
-
 - Class: mult_question
   Output: Mean, median, and mode are all measures of ____________.
   AnswerChoices: variation; significance; deviation; central tendency
   CorrectAnswer: central tendency
-  AnswerTests: word=central tendency
+  AnswerTests: omnitest(correctVal='central tendency')
   Hint: This is a fancy term for the "middle" of a dataset.
 
 - Class: mult_question
@@ -86,42 +82,42 @@
   AnswerChoices: median, mode, range; statistics, population, mode; population, sample,
     representative; mode, median, mean
   CorrectAnswer: mode, median, mean
-  AnswerTests: word= mode, median, mean
+  AnswerTests: omnitest(correctVal='mode, median, mean')
   Hint: These are the three different methods  stated above that are used for describing
     the center of a data set.
 
 - Class: cmd_question
   Output: To illustrate these concepts, we will now look at a real dataset from the
-    'openintro' R package, which has already been loaded for you. Type 'cars' and
+    'openintro' R package, which has already been loaded for you. Type 'cars93' and
     press Enter to see the dataset we'll be working with.
-  CorrectAnswer: cars
-  AnswerTests: equivalent=cars
-  Hint: Type 'cars' and press Enter. Do not use quotes, spaces, or uppercase letters.
+  CorrectAnswer: cars93
+  AnswerTests: omnitest(correctVal='cars93')
+  Hint: Type 'cars93' and press Enter. Do not use quotes, spaces, or uppercase letters.
 
 - Class: text
-  Output: 'You''ll notice the rows are numbered 1 through 54, each representing exactly
+  Output: 'You will notice the rows are numbered 1 through 54, each representing exactly
     one car in the dataset. For each car, the following VARIABLES, or characteristics,
-    are reported: ''type'' (small, midsize, large), ''price'' (USD), ''mpgCity'' (city
+    are reported: ''type'' (small, midsize, large), ''price'' (USD), ''mpg_city'' (city
     miles per gallon), ''driveTrain'' (4WD, front, rear), ''passengers'' (total capacity),
     and ''weight'' (lbs). '
 
 - Class: text
-  Output: We'll be focusing on the 'mpgCity' variable in this lesson. For simplicity,
+  Output: We will be focusing on the 'mpg_city' variable in this lesson. For simplicity,
     let's extract it from our dataset and store it in a new variable.
 
 - Class: cmd_question
-  Output: Access the 'mpgCity' variable from the 'cars' dataset using the 'dataset$variable'
+  Output: Access the 'mpg_city' variable from the 'cars93' dataset using the 'dataset$variable'
     notation.
-  CorrectAnswer: cars$mpgCity
-  AnswerTests: equivalent=cars$mpgCity
-  Hint: Use 'dataset$variable' notation. Remember the name of our dataset is 'cars'
-    and the name of the variable we are interested in is 'mpgCity'.
+  CorrectAnswer: cars93$mpg_city
+  AnswerTests: any_of_exprs("cars93$mpg_city")
+  Hint: Use 'dataset$variable' notation. Remember the name of our dataset is 'cars93'
+    and the name of the variable we are interested in is 'mpg_city'.
 
 - Class: cmd_question
-  Output: Now store the contents of the 'cars$mpgCity' in a new variable called 'myMPG'.
-  CorrectAnswer: myMPG <- cars$mpgCity
-  AnswerTests: newcmd=myMPG <- cars$mpgCity
-  Hint: Use the assignment operator to assign 'cars$mpgCity' to a new variable called
+  Output: Now store the contents of the 'cars93$mpg_city' in a new variable called 'myMPG'.
+  CorrectAnswer: myMPG <- cars93$mpg_city
+  AnswerTests: any_of_exprs("myMPG <- cars93$mpg_city", "myMPG = cars93$mpg_city", "myMPG<-cars93$mpg_city")
+  Hint: Use the assignment operator to assign 'cars93$mpg_city' to a new variable called
     'myMPG'.
 
 - Class: text
@@ -137,7 +133,7 @@
 - Class: cmd_question
   Output: Compute the mean value for the 'myMPG' variable now.
   CorrectAnswer: mean(myMPG)
-  AnswerTests: newcmd=mean(myMPG)
+  AnswerTests: any_of_exprs("mean(myMPG)")
   Hint: Use the 'mean' function by typing 'mean' followed by the name of your variable
     placed in parentheses. Don't use any spaces.
 
@@ -145,7 +141,7 @@
   Output: Extreme values in our dataset can have a significant influence on the mean.
     For instance, if there was a car in our dataset that got 200 miles per gallon,
     this would inflate the mean upwards. This could be misleading since none of the
-    other cars get anywhere near this gas mileage.
+    other cars93 get anywhere near this gas mileage.
 
 - Class: text
   Output: An alternative to the mean, which is not influenced at all by extreme values,
@@ -160,7 +156,7 @@
     done by typing 'median(variable)'. Find the median value of your 'myMPG' variable
     now.
   CorrectAnswer: median(myMPG)
-  AnswerTests: newcmd=median(myMPG)
+  AnswerTests: any_of_exprs("median(myMPG)")
   Hint: Use the 'median' function by typing 'median' followed by the name of your
     variable placed in parentheses. Don't use any spaces.
 
@@ -175,7 +171,7 @@
     'myMPG' variable. The syntax for this function is the same as for the others you've
     seen.
   CorrectAnswer: table(myMPG)
-  AnswerTests: newcmd=table(myMPG)
+  AnswerTests: any_of_exprs("table(myMPG)")
   Hint: Type 'table' followed by your variable name placed in parentheses. As usual,
     leave out the spaces.
 
@@ -185,7 +181,7 @@
     number of times it appears in your dataset. Since the mode is the value of our
     variable that appears most frequently, what is the mode of your 'myMPG' variable?
   CorrectAnswer: '19'
-  AnswerTests: exact=19
+  AnswerTests: omnitest(correctVal='19')
   Hint: Keep in mind that the mode is the value of the variable that is most common,
     NOT the number of times which it appears.
 
