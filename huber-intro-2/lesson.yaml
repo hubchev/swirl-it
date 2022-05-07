@@ -34,7 +34,7 @@
   Output: You can always run the whole script with the console command source, so e.g. for the script in the file foo.R you type source('foo.R'). You can also click 'Run all' in the editor window or type CTRL+SHIFT+S to run the whole script at once.
   
 - Class: cmd_question
-  Output: Make a script called firstscript.R. Type in the script R-code that generates 100 random numbers (x=rnorm(100)) and plots them (plot(x)). Save the script in your working directory (in the folder called 'swirl') and type source("firstscript.R") on the command line (here). Open the editor window with 'File' > 'New'. Type plot(rnorm(100)) in the script, save it as firstscript.R in the working directory. Then type source("firstscript.R") on the command line.
+  Output: Make a script called firstscript.R. Therefore, open the editor window with 'File' > 'New'. Type plot(rnorm(100)) in the script, save it as firstscript.R in the working directory. Then type source("firstscript.R") on the command line.
   CorrectAnswer: source("firstscript.R")
   AnswerTests: omnitest(correctExpr='source("firstscript.R")') 
 
