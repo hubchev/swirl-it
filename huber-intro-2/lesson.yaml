@@ -4,7 +4,7 @@
   Author: Stephan Huber
   Type: Standard
   Organization: Hochschule Fresenius
-  Version: 1.2
+  Version: 1.4
 
 - Class: text
   Output: Welcome to the second module. Again, if you find any errors or if you have suggestions for improvement, please let me know via stephan.huber@hs-fresenius.de .
@@ -125,7 +125,7 @@
   Output: In the following question you will be asked to modify a script that will appear as soon as you move on from this question. When you have finished modifying the script, save your changes to the script and type submit() and the script will be evaluated. There will be some comments in the script that opens up. Be sure to read them!
 
 - Class: script
-  Output: Make a script file which constructs three random normal vectors of length 100. Call these vectors x1, x2 and x3. Make a data frame called t with three columns (called a, b and c) containing respectively x1, x1+x2 and x1+x2+x3. Call plot(t) for this data frame.
+  Output: Make a script file which constructs three random normal vectors of length 100. Call these vectors x1, x2 and x3. Make a data frame called t with three columns (called a, b and c) containing respectively x1, x1+x2 and x1+x2+x3. Call plot(t) for this data frame. Then, save it and type submit() on the command line.
   AnswerTests: test_dataframe()
   Hint: Type plot(rnorm(100)) in the script, save it and type submit() on the command line. 
   Script: dataframe.R
@@ -134,7 +134,7 @@
   Output: Do you understand the results?
 
 - Class: cmd_question 
-  Output: Another basic structure in R is a list. The main advantage of lists is that the `columns` (they are not really ordered in columns any more, but are more a collection of vectors) don't have to be of the same length, unlike matrices and data frames. Make this list L = list(one=1, two=c(1,2), five=seq(0, 1, length=5)).
+  Output: Another basic structure in R is a list. The main advantage of lists is that the `columns` (they are not really ordered in columns any more, but are more a collection of vectors) don't have to be of the same length, unlike matrices and data frames. Make this list L <- list(one=1, two=c(1,2), five=seq(0, 1, length=5)).
   CorrectAnswer: L <- list(one=1, two=c(1,2), five=seq(0, 1, length=5))
   AnswerTests: omnitest(correctExpr='L <- list(one=1, two=c(1,2), five=seq(0, 1, length=5))')
 
@@ -200,5 +200,5 @@
   Output: ...that you can do it if you don't give up. 
   
 - Class: text  
-  Output: Please continue with the third module of this introduction.
+  Output: Please continue choosing another swril learning module.
   

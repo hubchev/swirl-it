@@ -4,7 +4,7 @@
   Author: Stephan Huber
   Type: Standard
   Organization: Hochschule Fresenius
-  Version: 1.0
+  Version: 1.1
 
 - Class: text
   Output: 'Welcome to Lesson 3! In this lesson, we will learn what DISPERSION is and
@@ -59,13 +59,6 @@
   Hint: 'Type in ''range(cars93$price)'' without quotations and press enter to see the
     minimum and maximum prices. '
 
-- Class: exact_question
-  Output: 'Now that you have the minimum and maximum ''price'' values, calculate the
-    range of the ''price'' data. '
-  CorrectAnswer: '54.5'
-  AnswerTests: omnitest(correctVal='54.5')
-  Hint: Subtract the minimum price value from the maximum price value.
-
 - Class: text
   Output: The second important measure of variability is known as VARIANCE. Mathematically,
     VARIANCE is the average of the squared differences from the mean. More simply,
@@ -73,7 +66,7 @@
 
 - Class: cmd_question
   Output: 'In R, you can use the command ''var(data)'' to easily calculate the variance
-    of a particular set of data. Try calculating the variance for the data ''cars$price''. '
+    of a particular set of data. Try calculating the variance for the data ''cars93$price''. '
   CorrectAnswer: var(cars93$price)
   AnswerTests: any_of_exprs("var(cars93$price)")
   Hint: Type in 'var(cars93$price)' without quotations and press enter to see the variance
