@@ -2,10 +2,12 @@
 I host my swirl courses here. 
 
 ## Installation 
+```{r}
 install.packages("swirl")
 library("swirl")
 install_course_github("hubchev", "swirl-it")
 swirl()
+```
 
 If the course has failed to install, 
 you can try to download the file swirl-it.swc
