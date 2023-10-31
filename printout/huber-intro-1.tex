@@ -1,0 +1,519 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={huber-intro-1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{huber-intro-1}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+Welcome to this swirl course. If you find any errors or if you have
+suggestions for improvement, please let me know via
+\href{mailto:stephan.huber@hs-fresenius.de}{\nolinkurl{stephan.huber@hs-fresenius.de}}
+.
+
+The RStudio interface consists of several windows. You can change the
+size of the windows by dragging the grey bars between the windows. We'll
+go through the most important windows now.
+
+Bottom left is the Console window (also called command window/line).
+Here you can type commands after the \textgreater{} prompt and R will
+then execute your command. This is the most important window, because
+this is where R actually does stuff.
+
+Top left is the Editor window (also called script window). Here
+collections of commands (scripts) can be edited and saved. When you do
+not get this window, you can open it with `File' \textgreater{} `New'
+\textgreater{} `R script'.
+
+Just typing a command in the editor window is not enough, it has to be
+send to the Console before R executes the command. If you want to run a
+line from the script window (or the whole script), you can click `Run'
+or press `CTRL+ENTER' to send it to the command window.
+
+The shortcut to run send the current line to the console is
+\_\_\_\_\_\_\_\_\_.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  CTRL+SHIFT
+\item
+  CTRL+ENTER
+\item
+  CTRL+SPACE
+\item
+  SHIFT+ENTER
+\end{enumerate}
+
+CTRL+ENTER
+
+If you are a Mac user, your shortcut is `Cmd+Return' instead of
+`SHIFT+ENTER'.
+
+Top right is the environment window (a.k.a workspace). Here you can see
+which data R has in its memory. You can view and edit the values by
+clicking on them.
+
+Bottom right is the plots / packages / help window. Here you can view
+plots, install and load packages or use the help function.
+
+The first thing you should do whenever you start Rstudio is to check if
+you are happy with your working directory. That directory is the folder
+on your computer in which you are currently working. That means, when
+you ask R to open a certain file, it will look in the working directory
+for this file, and when you tell R to save a data file or figure, it
+will save it in the working directory.
+
+You can check your working directory with the function getwd(). So let's
+do that. Type in the command window `getwd()' .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/home/sthu/Dropbox/hsf"
+\end{verbatim}
+
+Are you happy with that place? if not, you should set your working
+directory to where all your data and script files are (or will be).
+Within RStudio you can go to `Session' \textgreater{} `Set working
+directory' \textgreater{} `Choose directory'. Please do this now.
+
+Instead of clicking, you can use the function setwd(``/YOURPATH''). For
+example, setwd(``/Users/MYNAME/MYFOLDER'') or
+setwd(``C:/Users/jenny/myrstuff''). Make sure that the slashes are
+forward slashes and that you do not forget the apostrophes. R is case
+sensitive, so make sure you write capitals where necessary.
+
+Whenever you want R to do something you need to use a function. It is
+like a command. All functions of R are organized in so-called packages
+or libraries. With the standard installation many packages are already
+installed. However, many more exist and some of them are really cool.
+For example, with installed.packages() all installed packages are
+listed. Or, with swirl(), you started swirl.
+
+Of course, you can also go to the Packages window at the bottom right.
+If the box in front of the package name is ticked, the package is loaded
+(activated) and can be used. To see via Console which packages are
+loaded type in the console `(.packages())'
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{.packages}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "swirl"     "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+## [7] "methods"   "base"
+\end{verbatim}
+
+There are many more packages available on the R website. If you want to
+install and use a package (for example, the package called `geometry')
+you should first install the package. Type
+install.packages(``geometry'') in the console. Don't be afraid about the
+many messages. Depending on your PC and your internet connection this
+may take some time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"geometry"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Installing package into '/home/sthu/R/x86_64-pc-linux-gnu-library/4.1'
+## (as 'lib' is unspecified)
+\end{verbatim}
+
+After having installed a package, you need to load the package. That is
+a bit anoying but essential. Type in library(geometry) in the Console.
+You also did this for the swirl package (otherwise you couldn't have
+been doing these exercises).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(geometry)}
+\end{Highlighting}
+\end{Shaded}
+
+Check if the package is loaded typing `(.packages())'
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{.packages}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "geometry"  "swirl"     "stats"     "graphics"  "grDevices" "utils"    
+## [7] "datasets"  "methods"   "base"
+\end{verbatim}
+
+Now, let's get started with the real programming.
+
+R can be used as a calculator. You can just type your equation in the
+command window after the \textgreater. Type 10\^{}2 + 36.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+} \DecValTok{36}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 136
+\end{verbatim}
+
+And R gave the answer directly. By the way, spaces do not matter.
+
+If you use brackets and forget to add the closing bracket, the
+\textgreater{} on the command line changes into a +. The + can also mean
+that R is still busy with some heavy computation. If you want R to quit
+what it was doing and give back the \textgreater, press ESC.
+
+You can also give numbers a name. By doing so, they become so-called
+variables which can be used later. For example, you can type in the
+command window A \textless- 4 .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{\textless{}{-}} \DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+The `\textless-' is the so-called assignment operator. It allows you to
+assign data to a named object in order to store the data.
+
+Don't be confussed about the term object. All sorts of data are stored
+in so-called objects in R. All objects of a session are shown in the
+Environment window. In the second part of this course, I will introduce
+different data types.
+
+You can see that A appeared in the environment window in the top right
+corner, which means that R now remembers what A is.
+
+You can also ask R what A is. Just type A in the command window.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+You can also do calculations with A. Type A * 5 .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}\SpecialCharTok{*}\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 20
+\end{verbatim}
+
+If you specify A again, it will forget what value it had before. You can
+also assign a new value to A using the old one. Type A \textless- A + 10
+.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{\textless{}{-}}\NormalTok{ A }\SpecialCharTok{+} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+You can see that the value in the environment window changed.
+
+To remove all variables from R's memory, type rm(list=ls()) .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+You see that the environment window is now empty. You can also click the
+broom icon (\texttt{clear\ all}) in the environment window. You can see
+that RStudio then empties the environment window. If you only want to
+remove the variable A, you can type rm(A).
+
+Like in many other programs, R organizes numbers in scalars (a single
+number, 0-dimensional), vectors (a row of numbers, also called arrays,
+1-dimensional) and matrices (like a table, 2-dimensional).
+
+The A you defined before was a scalar. To define a vector with the
+numbers 3, 4 and 5, you need the function c, which is short for
+concatenate (paste together). Type B=c(3,4,5) .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+If you would like to compute the mean of all the elements in the vector
+B from the example above, you could type (3+4+5)/3. Try this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\DecValTok{4}\SpecialCharTok{+}\DecValTok{5}\NormalTok{)}\SpecialCharTok{/}\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+But when the vector is very long, this is very boring and time-consuming
+work. This is why things you do often are automated in so-called
+functions. For example, type mean(x=B) and guess what this function
+mean() can do for you.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(}\AttributeTok{x=}\NormalTok{B)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+Within the brackets you specify the arguments. Arguments give extra
+information to the function. In this case, the argument x says of which
+set of numbers (vector) the mean should be computed (namely of B).
+Sometimes, the name of the argument is not necessary; mean(B) works as
+well. Try it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(B)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+Compute the sum of 4, 5, 8 and 11 by first combining them into a vector
+and then using the function sum. Use the function c inside the function
+sum.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{11}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 28
+\end{verbatim}
+
+The function rnorm, as another example, is a standard R function which
+creates random samples from a normal distribution. Type rnorm(10) and
+you will see 10 random numbers
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  0.76977837 -0.14622141  0.53924840 -0.88086971  1.92077037 -0.28015385
+##  [7]  0.01594662  1.64208469 -0.66669651  1.08656820
+\end{verbatim}
+
+Here rnorm is the function and the 10 is an argument specifying how many
+random numbers you want - in this case 10 numbers (typing n=10 instead
+of just 10 would also work). The result is 10 random numbers organised
+in a vector with length 10.
+
+If you want 10 random numbers out of normal distribution with mean 1.2
+and standard deviation 3.4 you can type rnorm(10, mean=1.2, sd=3.4). Try
+this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rnorm}\NormalTok{(}\DecValTok{10}\NormalTok{, }\AttributeTok{mean=}\FloatTok{1.2}\NormalTok{, }\AttributeTok{sd=}\FloatTok{3.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  3.56916212 -0.50465437  0.95331590  0.07725623 -5.56529257  2.53201285
+##  [7]  0.15829096  6.05524550 -3.35290698 -0.03229734
+\end{verbatim}
+
+This shows that the same function (rnorm) may have different interfaces
+and that R has so called named arguments (in this case mean and sd).
+
+Comparing this example to the previous one also shows that for the
+function rnorm only the first argument (the number 10) is compulsory,
+and that R gives default values to the other so-called optional
+arguments. Use the help function to see which values are used as default
+by typing ?rnorm.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?rnorm}
+\end{Highlighting}
+\end{Shaded}
+
+You see the help page for this function in the help window on the right.
+RStudio has a nice features such as autocompletion and snapshots of the
+R documentation. For example, when you type rnorm( in the command window
+and press TAB, RStudio will show the possible arguments.
+
+You can also store the output of the function in a variable. Type
+x=rnorm(100).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now 100 random numbers are assigned to the variable x, which becomes a
+vector by this operation. You can see it appears in the Environment
+window.
+
+R can also make graphs. Type plot(x) for a very simple example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{huber-intro-1_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+The 100 random numbers are now plotted in the plots window on the right.
+
+You now are more familiar to RStudio and you know some basic R stuff. In
+particular, you know\ldots{}
+
+\ldots that everything in R is said with functions,
+
+\ldots that functions can but don't have to have arguments,
+
+\ldots that you can install packages which contain functions,
+
+\ldots that you must load the installed packages every time you start a
+session in RStudio, and
+
+\ldots that this is just the beginning. Thus, please continue with the
+second module of this introduction.
+
+\end{document}

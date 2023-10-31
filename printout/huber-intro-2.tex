@@ -1,0 +1,507 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={huber-intro-2},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{huber-intro-2}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+Welcome to the second module. Again, if you find any errors or if you
+have suggestions for improvement, please let me know via
+\href{mailto:stephan.huber@hs-fresenius.de}{\nolinkurl{stephan.huber@hs-fresenius.de}}
+.
+
+Before you start working, you should set your working directory to where
+all your data and script files are or should be stored. Within RStudio
+you can go to `Session'\textgreater{} `Set working directory', or you
+can type in setwd(YOURPATH). Please do this now.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{setwd}\NormalTok{(}\FunctionTok{getwd}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+R is an interpreter that uses a command line based environment. This
+means that you have to type commands, rather than use the mouse and
+menus. This has many advantages. Foremost, it is easy to get a full
+transcript of everything you did and you can replicate your work easy.
+
+As already mentioned, all commands in R are functions where arguments
+come (or do not come) in round brackets after the function name.
+
+You can store your workflow in files, the so-called scripts. These
+scripts have typically file names with the extension, e.g., foo.R .
+
+You can open an editor window to edit these files by clicking `File' and
+`New'. Try this. Under `File' you also find the options `Open
+file\ldots{}', `Save' and `Save as'. Alternatively, just type
+CTRL+SHIFT+N.
+
+You can run (send to the Console window) part of the code by selecting
+lines and pressing CTRL+ENTER or click `Run' in the editor window. If
+you do not select anything, R will run the line your cursor is on.
+
+You can always run the whole script with the console command source, so
+e.g.~for the script in the file foo.R you type source(`foo.R'). You can
+also click `Run all' in the editor window or type CTRL+SHIFT+S to run
+the whole script at once.
+
+Make a script called firstscript.R. Therefore, open the editor window
+with `File' \textgreater{} `New'. Type plot(rnorm(100)) in the script,
+save it as firstscript.R in the working directory. Then type
+source(``firstscript.R'') on the command line.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#source("firstscript.R")}
+\end{Highlighting}
+\end{Shaded}
+
+Run your script again with source(``firstscript.R''). The plot will
+change because new numbers are generated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#source("firstscript.R")}
+\end{Highlighting}
+\end{Shaded}
+
+Vectors were already introduced, but they can do more. Make a vector
+with numbers 1, 4, 6, 8, 10 and call it vec1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Elements in vectors can be addressed by standard {[}i{]} indexing.
+Select the 5th element of this vector by typing vec1{[}5{]}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec1[}\DecValTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+Replace the 3rd element with a new number by typing vec1{[}3{]}=12.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec1[}\DecValTok{3}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{12}
+\end{Highlighting}
+\end{Shaded}
+
+Ask R what the new version is of vec1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  4 12  8 10
+\end{verbatim}
+
+You can also see the numbers of vec1 in the environment window. Make a
+new vector vec2 using the seq() (sequence) function by typing
+seq(from=0, to=1, by=0.25) and check its values in the environment
+window.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec2 }\OtherTok{\textless{}{-}}\FunctionTok{seq}\NormalTok{(}\AttributeTok{from=}\DecValTok{0}\NormalTok{, }\AttributeTok{to=}\DecValTok{1}\NormalTok{, }\AttributeTok{by=}\FloatTok{0.25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Type sum(vec1).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(vec1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35
+\end{verbatim}
+
+The function sum sums up the elements within a vector, leading to one
+number (a scalar). Now use + to add the two vectors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec1}\SpecialCharTok{+}\NormalTok{vec2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1.00  4.25 12.50  8.75 11.00
+\end{verbatim}
+
+If you add two vectors of the same length, the first elements of both
+vectors are summed, and the second elements, etc., leading to a new
+vector of length 5 (just like in regular vector calculus).
+
+Matrices are nothing more than 2-dimensional vectors. To define a
+matrix, use the function matrix. Make a matrix with
+matrix(data=c(9,2,3,4,5,6),ncol=3) and call it mat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat}\OtherTok{\textless{}{-}}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{data=}\FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The third type of data structure treated here is the data frame. Time
+series are often ordered in data frames. A data frame is a matrix with
+names above the columns. This is nice, because you can call and use one
+of the columns without knowing in which position it is. Make a data
+frame with t = data.frame(x = c(11,12,14), y = c(19,20,21), z =
+c(10,9,7)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{14}\NormalTok{), }\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{19}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{21}\NormalTok{), }\AttributeTok{z =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Ask R what t is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    x  y  z
+## 1 11 19 10
+## 2 12 20  9
+## 3 14 21  7
+\end{verbatim}
+
+The data frame is called t and the columns have the names x, y and z.
+You can select one column by typing t\$z. Try this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t}\SpecialCharTok{$}\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10  9  7
+\end{verbatim}
+
+Another option is to type t{[}{[}``z''{]}{]}. Try this as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t[[}\StringTok{"z"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10  9  7
+\end{verbatim}
+
+Compute the mean of column z in data frame t.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(t}\SpecialCharTok{$}\NormalTok{z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.666667
+\end{verbatim}
+
+In the following question you will be asked to modify a script that will
+appear as soon as you move on from this question. When you have finished
+modifying the script, save your changes to the script and type submit()
+and the script will be evaluated. There will be some comments in the
+script that opens up. Be sure to read them!
+
+Make a script file which constructs three random normal vectors of
+length 100. Call these vectors x1, x2 and x3. Make a data frame called t
+with three columns (called a, b and c) containing respectively x1, x1+x2
+and x1+x2+x3. Call plot(t) for this data frame. Then, save it and type
+submit() on the command line.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Text behind the \#{-}sign is not evaluated as code by R. }
+\CommentTok{\# This is useful, because it allows you to add comments explaining what the script does.}
+
+\CommentTok{\# In this script, replace the ... with the appropriate commands.}
+
+\NormalTok{x1 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{x2 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{x3 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{t }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{a=}\NormalTok{x1, }\AttributeTok{b=}\NormalTok{x1}\SpecialCharTok{+}\NormalTok{x2, }\AttributeTok{c=}\NormalTok{x1}\SpecialCharTok{+}\NormalTok{x2}\SpecialCharTok{+}\NormalTok{x3)}
+\FunctionTok{plot}\NormalTok{(t)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{huber-intro-2_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+Do you understand the results?
+
+Another basic structure in R is a list. The main advantage of lists is
+that the \texttt{columns} (they are not really ordered in columns any
+more, but are more a collection of vectors) don't have to be of the same
+length, unlike matrices and data frames. Make this list L \textless-
+list(one=1, two=c(1,2), five=seq(0, 1, length=5)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{L }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{one=}\DecValTok{1}\NormalTok{, }\AttributeTok{two=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{five=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{length=}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The list L has names and values. You can type L to see the contents.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{L}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $one
+## [1] 1
+## 
+## $two
+## [1] 1 2
+## 
+## $five
+## [1] 0.00 0.25 0.50 0.75 1.00
+\end{verbatim}
+
+L also appeared in the environment window. To find out what's in the
+list, type names(L).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(L)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "one"  "two"  "five"
+\end{verbatim}
+
+Add 10 to the column called five.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{L}\SpecialCharTok{$}\NormalTok{five }\SpecialCharTok{+} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.00 10.25 10.50 10.75 11.00
+\end{verbatim}
+
+Plotting is an important statistical activity. So it should not come as
+a surprise that R has many plotting facilities. Type plot(rnorm(100),
+type=``l'', col=``gold'').
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{), }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{col=}\StringTok{"gold"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{huber-intro-2_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+Hundred random numbers are plotted by connecting the points by lines in
+a gold color.
+
+Another very simple example is the classical statistical histogram plot,
+generated by the simple command hist. Make a histogram of 100 random
+numbers.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{huber-intro-2_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+The script that opens up is the same as the script you made before, but
+with more plotting commands. Type submit() on the command line to run it
+(you don't have to change anything yet).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Text behind the \#{-}sign is not evaluated as code by R. }
+\CommentTok{\# This is useful, because it allows you to add comments explaining what the script does.}
+
+\CommentTok{\# Make data frame}
+\NormalTok{x1 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{x2 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{x3 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{t }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{a=}\NormalTok{x1, }\AttributeTok{b=}\NormalTok{x1}\SpecialCharTok{+}\NormalTok{x2, }\AttributeTok{c=}\NormalTok{x1}\SpecialCharTok{+}\NormalTok{x2}\SpecialCharTok{+}\NormalTok{x3)}
+
+\CommentTok{\# Plot data frame}
+\FunctionTok{plot}\NormalTok{(t}\SpecialCharTok{$}\NormalTok{a, }\AttributeTok{type=}\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{, }\AttributeTok{ylim=}\FunctionTok{range}\NormalTok{(t), }\AttributeTok{lwd=}\DecValTok{3}\NormalTok{, }\AttributeTok{col=}\FunctionTok{rgb}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FloatTok{0.3}\NormalTok{))}
+\FunctionTok{lines}\NormalTok{(t}\SpecialCharTok{$}\NormalTok{b, }\AttributeTok{type=}\StringTok{\textquotesingle{}s\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\FunctionTok{rgb}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.4}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.9}\NormalTok{))}
+\FunctionTok{points}\NormalTok{(t}\SpecialCharTok{$}\NormalTok{c, }\AttributeTok{pch=}\DecValTok{20}\NormalTok{, }\AttributeTok{cex=}\DecValTok{4}\NormalTok{, }\AttributeTok{col=}\FunctionTok{rgb}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{huber-intro-2_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Note that with plot you get a new plot window while points and lines add to the previous plot.}
+\end{Highlighting}
+\end{Shaded}
+
+Try to find out by experimenting what the meaning is of rgb, the last
+argument of rgb, lwd, pch, cex. Type play() on the command line to
+experiment. Modify lines 11, 12 and 13 of the script by putting your
+cursor there and pressing CTRL+ENTER. When you are finished, type nxt()
+and then ?par.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?par}
+\end{Highlighting}
+\end{Shaded}
+
+You searched for par in the R help. This is a useful page to learn more
+about formatting plots. Google `R color chart' for a pdf file with a
+wealth of color options.
+
+To copy your plot to a document, go to the plots window, click the
+`Export' button, choose the nicest width and height and click `Copy' or
+`Save'.
+
+After having almost completed the second learning module, you are
+getting closer to become a nerd as you know\ldots{}
+
+\ldots that everything in R is stored in objects (values, vectors,
+matrices, lists, or data frames),
+
+\ldots that you should always work in scripts and send code from scripts
+to the Console,
+
+\ldots that you can do it if you don't give up.
+
+Please continue choosing another swril learning module.
+
+\end{document}
