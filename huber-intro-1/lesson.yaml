@@ -24,7 +24,7 @@
   Output: Just typing a command in the editor window is not enough, it has to be send to the Console before R executes the command. If you want to run a line from the script window (or the whole script), you can click 'Run' or press 'CTRL+ENTER' to send it to the command window. 
 
 - Class: mult_question
-  Output: The shortcut to run send the current line to the console is _________.
+  Output: The shortcut to send the current line to the console and run it there is _________.
   AnswerChoices: 'CTRL+SHIFT; CTRL+ENTER; CTRL+SPACE; SHIFT+ENTER'
   CorrectAnswer: CTRL+ENTER
   AnswerTests: omnitest(correctVal='CTRL+ENTER')
@@ -63,15 +63,15 @@
   Hint: Type (.packages()) or skip() if you are not interested in your packages.  
   
 - Class: cmd_question
-  Output: There are many more packages available on the R website. If you want to install and use a package (for example, the package called 'geometry') you should first install the package. Type install.packages("geometry") in the console. Don't be afraid about the many messages. Depending on your PC and your internet connection this may take some time.  
+  Output: There are many more packages available on the R website. If you want to install and use a package (for example, the package called 'geometry') you should first install the package. Type 'install.packages("geometry")' in the console. Don't be afraid about the many messages. Depending on your PC and your internet connection this may take some time.  
   CorrectAnswer: install.packages("geometry")
   AnswerTests: omnitest(correctExpr='install.packages("geometry")') 
   Hint: Type install.packages("geometry") or skip() if you are not interested in installing packages.  
 
 - Class: cmd_question  
-  Output: After having installed a package, you need to load the package. That is a bit anoying but essential. Type in library(geometry) in the Console. You also did this for the swirl package (otherwise you couldn't have been doing these exercises). 
-  CorrectAnswer: library(geometry)
-  AnswerTests: omnitest(correctExpr='library(geometry)') 
+  Output: After having installed a package, you need to load the package. That is a bit anoying but essential. Type in 'library("geometry")' in the Console. You also did this for the swirl package (otherwise you couldn't have been doing these exercises). 
+  CorrectAnswer: library("geometry"")
+  AnswerTests: omnitest(correctExpr='library("geometry"")') 
   Hint: Type library(geometry) or skip() if you are not interested in loading packages. 
 
 - Class: cmd_question
@@ -132,7 +132,7 @@
   Output: You can see that the value in the environment window changed.
   
 - Class: cmd_question
-  Output: To remove all variables from R's memory, type rm(list=ls()) .
+  Output: To remove all variables from R's memory, type 'rm(list=ls())'.
   CorrectAnswer: rm(list=ls()) 
   AnswerTests: omnitest(correctExpr='rm(list=ls())')
   Hint: Type rm(list=ls()) or skip() if you are not interested in finding the solution on your own. 
@@ -144,25 +144,25 @@
   Output: Like in many other programs, R organizes numbers in scalars (a single number, 0-dimensional), vectors (a row of numbers, also called arrays, 1-dimensional) and matrices (like a table, 2-dimensional).
 
 - Class: cmd_question
-  Output: The A you defined before was a scalar. To define a vector with the numbers 3, 4 and 5, you need the function c, which is short for concatenate (paste together). Type B=c(3,4,5) .
+  Output: The A you defined before was a scalar. To define a vector with the numbers 3, 4 and 5, you need the function c, which is short for concatenate (paste together). Type 'B=c(3,4,5)'.
   CorrectAnswer: B=c(3,4,5) 
   AnswerTests: omnitest(correctExpr='B=c(3,4,5)')
   Hint: Type B=c(3,4,5) or skip() if you are not interested in finding the solution on your own. 
 
 - Class: cmd_question
-  Output: If you would like to compute the mean of all the elements in the vector B from the example above, you could type (3+4+5)/3. Try this
+  Output: If you would like to compute the mean of all the elements in the vector B from the example above, you could type '(3+4+5)/3'. Try this
   CorrectAnswer: (3+4+5)/3
   AnswerTests: omnitest(correctExpr='(3+4+5)/3')  
   Hint: Type (3+4+5)/3 or skip() if you are not interested in finding the solution on your own. 
  
 - Class: cmd_question
-  Output: But when the vector is very long, this is very boring and time-consuming work. This is why things you do often are automated in so-called functions. For example, type mean(x=B) and guess what this function mean() can do for you.
+  Output: But when the vector is very long, this is very boring and time-consuming work. This is why things you do often are automated in so-called functions. For example, type 'mean(x=B)' and guess what this function can do for you.
   CorrectAnswer: mean(x=B)
   AnswerTests: omnitest(correctExpr='mean(x=B)')
   Hint: Type mean(x=B) or skip() if you are not interested in finding the solution on your own. 
 
 - Class: cmd_question
-  Output: Within the brackets you specify the arguments. Arguments give extra information to the function. In this case, the argument x says of which set of numbers (vector) the mean should be computed (namely of B). Sometimes, the name of the argument is not necessary; mean(B) works as well. Try it.
+  Output: Within the brackets you specify the arguments. Arguments give extra information to the function. In this case, the argument x says of which set of numbers (vector) the mean should be computed (namely of B). Sometimes, the name of the argument is not necessary; 'mean(B)' works as well. Try it.
   CorrectAnswer: mean(B)
   AnswerTests: omnitest(correctExpr='mean(B)')
   Hint: type mean(B) or skip() if you are not interested in finding the solution on your own. 
@@ -174,7 +174,7 @@
   Hint: Type sum(c(4,5,8,11)) or skip() if you are not interested in finding the solution on your own. 
 
 - Class: cmd_question
-  Output: The function rnorm, as another example, is a standard R function which creates random samples from a normal distribution. Type rnorm(10) and you will see 10 random numbers
+  Output: The function rnorm, as another example, is a standard R function which creates random samples from a normal distribution. Type 'rnorm(10)' and you will see 10 random numbers
   CorrectAnswer: rnorm(10)
   AnswerTests: omnitest(correctExpr='rnorm(10)')
   Hint: Type rnorm(10) or skip() if you are not interested in finding the solution on your own. 
@@ -183,7 +183,7 @@
   Output: Here rnorm is the function and the 10 is an argument specifying how many random numbers you want - in this case 10 numbers (typing n=10 instead of just 10 would also work). The result is 10 random numbers organised in a vector with length 10.
 
 - Class: cmd_question
-  Output: If you want 10 random numbers out of normal distribution with mean 1.2 and standard deviation 3.4 you can type rnorm(10, mean=1.2, sd=3.4). Try this.
+  Output: If you want 10 random numbers out of normal distribution with mean 1.2 and standard deviation 3.4 you can type 'rnorm(10, mean=1.2, sd=3.4)'. Try this.
   CorrectAnswer: rnorm(10, mean=1.2, sd=3.4)
   AnswerTests: omnitest(correctExpr='rnorm(10, mean=1.2, sd=3.4)')
   Hint: Type rnorm(10, mean=1.2, sd=3.4) or skip() if you are not interested in finding the solution on your own. 
@@ -192,16 +192,16 @@
   Output: This shows that the same function (rnorm) may have different interfaces and that R has so called named arguments (in this case mean and sd).
 
 - Class: cmd_question
-  Output: Comparing this example to the previous one also shows that for the function rnorm only the first argument (the number 10) is compulsory, and that R gives default values to the other so-called optional arguments. Use the help function to see which values are used as default by typing ?rnorm. 
+  Output: Comparing this example to the previous one also shows that for the function rnorm only the first argument (the number 10) is compulsory, and that R gives default values to the other so-called optional arguments. Use the help function to see which values are used as default by typing '?rnorm'. 
   CorrectAnswer: ?rnorm  
   AnswerTests: omnitest(correctExpr='?rnorm')
   Hint: Type ?rnorm or skip() if you are not interested in finding the solution on your own. 
 
 - Class: text
-  Output: You see the help page for this function in the help window on the right. RStudio has a nice features such as autocompletion and snapshots of the R documentation. For example, when you type rnorm( in the command window and press TAB, RStudio will show the possible arguments.
+  Output: You see the help page for this function in the help window on the right. RStudio has a nice features such as autocompletion and snapshots of the R documentation. For example, when you type 'rnorm(' in the command window and press TAB, RStudio will show the possible arguments.
 
 - Class: cmd_question
-  Output: You can also store the output of the function in a variable. Type x=rnorm(100).
+  Output: You can also store the output of the function in a variable. Type 'x=rnorm(100)'.
   CorrectAnswer: x=rnorm(100)  
   AnswerTests: omnitest(correctExpr='x=rnorm(100)')
   Hint: Type x=rnorm(100) or skip() if you are not interested in finding the solution on your own. 
@@ -210,7 +210,7 @@
   Output: Now 100 random numbers are assigned to the variable x, which becomes a vector by this operation. You can see it appears in the Environment window.  
   
 - Class: cmd_question
-  Output: R can also make graphs. Type plot(x) for a very simple example. 
+  Output: R can also make graphs. Type 'plot(x)' for a very simple example. 
   CorrectAnswer: plot(x)
   AnswerTests: omnitest(correctExpr='plot(x)')
   

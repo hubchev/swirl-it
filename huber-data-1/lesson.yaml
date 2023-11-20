@@ -91,7 +91,7 @@
     'openintro' R package, which has already been loaded for you. Type 'cars93' and
     press Enter to see the dataset we'll be working with.
   CorrectAnswer: cars93
-  AnswerTests: omnitest(correctVal='cars93')
+  AnswerTests: any_of_exprs("cars93")
   Hint: Type 'cars93' and press Enter. Do not use quotes, spaces, or uppercase letters.
 
 - Class: text
